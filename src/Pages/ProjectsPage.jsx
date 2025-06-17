@@ -170,9 +170,7 @@ export function ProjectsPage() {
       ...prev,
       [taskId]: newStatus,
     }));
-    console.log(taskId);
-    console.log(newStatus);
-    console.log("Estado taskStatus:", taskStatus);
+
     UpdateStatusTask(taskId, newStatus)
       .then(() => {
         console.log("Estado actualizado");
@@ -191,11 +189,6 @@ export function ProjectsPage() {
       console.log("Error a crear el pdf");
     } finally {
     }
-
-    const doc = new jsPDF();
-
-    doc.text("¡Hola mundo!", 10, 10);
-    doc.save("a4.pdf");
   };
 
   // Abrir modal y cargar detalles

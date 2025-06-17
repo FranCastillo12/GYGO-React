@@ -1,106 +1,199 @@
-import React, { useState } from "react";
+
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../API/Auth";
+import {
+  Button,
+  CssBaseline,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Container,
+  InputAdornment,
+  IconButton,
+} from "@mui/material";
+import { Visibility, VisibilityOff, Email } from "@mui/icons-material";
+import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
+import Swal from "sweetalert2";
+
+const theme = createTheme({
+  palette: {
+    primary: { main: "#2DA14C" },
+    secondary: { main: "#ffffff" },
+    background: { default: "#f9f9f5" },
+  },
+  typography: {
+    fontFamily: "Arial, sans-serif",
+  },
+  shape: { borderRadius: 12 },
+});
+
+const Paper = styled("div")(({ theme }) => ({
+  padding: "40px",
+  backgroundColor: "white",
+  borderRadius: theme.shape.borderRadius,
+  boxShadow: theme.shadows[5],
+  width: "100%",
+}));
 
 
-const Login = () => {
+export default function Login() {
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await fetch("http://localhost:5135/login", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email, username, password }),
+    if (!email || !password) {
+      Swal.fire({
+        icon: "warning",
+        title: "No se pudo iniciar sesión",
+        text: "Por favor, completá todos los campos.",
+        confirmButtonColor: "#f8bb86",
       });
+      return;
+    }
 
-      if (!response.ok) {
-        throw new Error("Invalid credentials");
+    try {
+      const { success, isTwoFactor, tempToken, error } = await loginUser(
+        email,
+        password
+      );
+      if (!success) {
+        Swal.fire({
+          icon: "error",
+          title: "Error al iniciar sesión",
+          text: "Usuario o contraseña incorrectos",
+          confirmButtonColor: "#d33",
+        });
+
+        return;
       }
 
-      const data = await response.json();
-      console.log(data);
+      if (isTwoFactor) {
+        // Redirect to 2FA page
+        navigate(`/verify-2fa?tempToken=${encodeURIComponent(tempToken)}`);
+      } else {
+        // Normal login success — redirect to dashboard or home
+        navigate("/DashboardGroupPage");
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo conectar con el servidor, intentá nuevamente más tarde.",
+        confirmButtonColor: "#d33",
+      });
 
-    if (!data.isSuccess) {
-      setError(data.errors ? data.errors.join(", ") : "Login failed");
-      return;
     }
-
-    if (data.is2FactorRequired) {
-      localStorage.setItem("tempToken", data.tempToken);
-      alert("Two-factor authentication required. Please verify.");
-      return;
-    }
-
-    if (data.token) {
-      //localStorage.setItem("authToken", data.token.AccessToken);
-      alert("Login successful!");
-      navigate("/DashboardGroupPage");
-      // falta redirect a la pagina de dashboard
-
-    } else {
-      throw new Error("Unexpected response from server");
-    }
-  } catch (err) {
-    setError(err.message);
-  }};
+  };
 
   return (
     <div>
-      <h1>Login</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-
+      {/* <h2>Login</h2>
+      <form onSubmit={handleLogin}>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
         <button type="submit">Login</button>
-        <p>
-          Forgot password? | New here?{" "}
-          <a href="/register">Create an account</a>
-        </p>
       </form>
+      {message && <p>{message}</p>} */}
+
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Box
+          sx={{
+            backgroundColor: "background.default",
+            minHeight: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Container maxWidth="xs">
+            <Paper>
+              <Box textAlign="center" mb={1}>
+                <img
+                  src="/src/assets/Logo.png"
+                  alt="Logo"
+                  style={{ maxWidth: "120px"}}
+                />
+              </Box>
+
+              <Box textAlign="center" mb={2}>
+                <Typography variant="h4" fontWeight={600} color="primary">
+                  SIGN IN
+                </Typography>
+                <Typography variant="body2" color="textSecondary" mt={1}>
+                  Sign into your account
+                </Typography>
+              </Box>
+
+              <form onSubmit={handleLogin}>
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Correo Eletronico"
+                  variant="outlined"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+
+                <TextField
+                  fullWidth
+                  margin="normal"
+                  label="Contraseña"
+                  variant="outlined"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => setShowPassword(!showPassword)}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  sx={{ mt: 3, mb: 2, py: 1.5, borderRadius: 2 }}
+                >
+                  Sign In
+                </Button>
+              </form>
+            </Paper>
+          </Container>
+        </Box>
+      </ThemeProvider>
     </div>
   );
-};
-
-export default Login;
+}
