@@ -12,11 +12,6 @@ import { ChatWindow } from "./Pages/ChatWindow";
 import HomePage from "./Pages/HomePage";
 import "../src/App.css";
 import Login from "./Pages/Login";
-
-
-
-
-import Login from "./Pages/Login";
 import "./App.css";
 import { NavBar } from "./components/NavBar";
 
@@ -25,6 +20,7 @@ function App() {
   return (
     <BrowserRouter>
       <HomePage />
+      <Layout />
     </BrowserRouter>
   );
 }
@@ -41,7 +37,7 @@ function Layout() {
       {!hideNavbar && <NavBar />}
       <Routes>
         <Route path="/Login" element={<Login />} />
-        <Route path="/" element={<Navigate to="/Login" replace />} /> 
+        
         <Route path="/register" element={<Register />} />
         <Route path="/SendInvite" element={<SendInvite />} />
         <Route path="/Verify2FA" element={<Verify2FA />} />

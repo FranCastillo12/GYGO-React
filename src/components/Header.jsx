@@ -1,7 +1,8 @@
 "use client"
-
+import  LoginButton  from "./LoginButton"
 import { useState, useEffect } from "react"
 import "../styles/Header.css" // Asegúrate de tener este archivo CSS
+
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -73,6 +74,9 @@ const Header = () => {
                 <a href="#contactos" onClick={closeMenu}>
                   Contactos
                 </a>
+              </li>
+              <li>
+                <LoginButton />
               </li>
             </ul>
           </nav>
