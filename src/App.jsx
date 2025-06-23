@@ -8,9 +8,16 @@ import {ReportCompanies} from "./Pages/ReportCompaniesPage"
 import {Register} from "./Pages/Register"
 import {SendInvite} from "./Pages/SendInvite"
 import {Verify2FA} from "./Pages/Verify2Fa"
+
 import { ChatWindow } from "./Pages/ChatWindow";
 import HomePage from "./Pages/HomePage";
 import "../src/App.css";
+import {DashboardConsumo} from "./Pages/ConsumoPage"
+
+
+
+
+
 import Login from "./Pages/Login";
 import "./App.css";
 import { NavBar } from "./components/NavBar";
@@ -46,6 +53,9 @@ function Layout() {
         <Route path="/AddGroup" element={<AddGroupSAPage />} />
         <Route path="/ChangePassword" element={<ChangePasswordPage />} />
         <Route path="/Chat" element={<ChatWindow/>} />
+
+        <Route path="/ConsumoPage" element={<DashboardConsumo />} />
+
           {/*Rutas de los reportes*/}
         <Route path="/ReportCompanies" element={<ReportCompanies />} />
       </Routes>

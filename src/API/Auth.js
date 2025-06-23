@@ -1,3 +1,5 @@
+import { appsettings } from "../settings/appsettings";
+
 export  async function verify2FACode(tempToken, code) {
   try {
     const response = await fetch('/api/auth/verify-2fa', {
@@ -22,7 +24,7 @@ export  async function verify2FACode(tempToken, code) {
 
 export  async function loginUser(email, password) {
   try {
-    const response = await fetch('http://localhost:5135/login', {
+    const response = await fetch(`${appsettings.apiUrl}Auth/login`, {
       method: 'POST',
       credentials: "include",
       headers: {
@@ -85,10 +87,10 @@ export  async function sendInvite(email) {
 
 export async function registerUser(inviteToken, { email, username, password }) {
   
-  const url = inviteToken ? `/api/register/${inviteToken}` : '/api/register';
+  const url = inviteToken ? `/api/register/${inviteToken}` : 'User/Register';
 
   try {
-    const response = await fetch(url, {
+    const response = await fetch(`${appsettings.apiUrl}${url}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, username, password }),
