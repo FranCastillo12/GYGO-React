@@ -1,0 +1,96 @@
+.contactenos-container {
+  min-height: 100vh;
+  background-color: #f9fafb;
+}
+
+.contactenos-content {
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 48px 16px;
+}
+
+.page-title {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.page-title h1 {
+  font-size: 2.25rem;
+  font-weight: bold;
+  color: #1f2937;
+  margin-bottom: 16px;
+}
+
+.page-title p {
+  font-size: 1.125rem;
+  color: #6b7280;
+  max-width: 512px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.contact-content {
+  max-width: 896px;
+  margin: 0 auto;
+}
+
+.contact-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.call-to-action {
+  text-align: center;
+  margin-top: 64px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  padding: 32px;
+}
+
+.call-to-action h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 16px;
+}
+
+.call-to-action p {
+  color: #6b7280;
+  margin-bottom: 24px;
+}
+
+.cta-button {
+  background-color: #059669;
+  color: white;
+  font-weight: 600;
+  padding: 12px 32px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cta-button:hover {
+  background-color: #047857;
+}
+
+@media (max-width: 768px) {
+  .contactenos-content {
+    padding: 24px 16px;
+  }
+
+  .page-title h1 {
+    font-size: 1.875rem;
+  }
+
+  .page-title p {
+    font-size: 1rem;
+  }
+
+  .call-to-action {
+    margin-top: 32px;
+    padding: 24px;
+  }
+}

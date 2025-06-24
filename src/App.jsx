@@ -11,6 +11,7 @@ import {Verify2FA} from "./Pages/Verify2Fa"
 import Header  from "./components/Header";
 import { ChatWindow } from "./Pages/ChatWindow";
 import HomePage from "./Pages/HomePage";
+import Contactenos from "./Pages/Contactenos";
 import "../src/App.css";
 import {DashboardConsumo} from "./Pages/ConsumoPage"
 
@@ -52,7 +53,13 @@ function Layout() {
         <Route path="/AddGroup" element={<AddGroupSAPage />} />
         <Route path="/ChangePassword" element={<ChangePasswordPage />} />
         <Route path="/Chat" element={<ChatWindow/>} />
-
+        <Route path="/Contactenos" element={<Contactenos />} />
+        
+          {/*Rutas de los dashboards*/}
+          <Route path="/DashboardGroupPage" element={<DashboardGroupPage />} />
+          <Route path="/ProjectsPage" element={<ProjectsPage />} />
+          <Route path="/AddGroup" element={<AddGroupSAPage />} />
+          <Route path="/ChangePassword" element={<ChangePasswordPage />} />
         <Route path="/ConsumoPage" element={<DashboardConsumo />} />
 
           {/*Rutas de los reportes*/}
