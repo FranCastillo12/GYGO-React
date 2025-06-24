@@ -7,8 +7,9 @@ import { AddGroupSAPage } from "./Pages/AddGroupSAPage";
 import {ReportCompanies} from "./Pages/ReportCompaniesPage"
 import {Register} from "./Pages/Register"
 import {SendInvite} from "./Pages/SendInvite"
-import {Verify2FA} from "./Pages/Verify2Fa"
+import { Verify2FA } from './pages/Verify2FA';
 import { ChatWindow } from "./Pages/ChatWindow";
+import AdminEmisionFactor from "./Pages/AdminEmisionFactor"
 import AdminUserDashboard from "./Pages/AdminUserDashboard";
 import HomePage from "./Pages/HomePage";
 import "../src/App.css";
@@ -39,13 +40,14 @@ function Layout() {
         <Route path="/" element={<Navigate to="/Login" replace />} /> 
         <Route path="/register" element={<Register />} />
         <Route path="/SendInvite" element={<SendInvite />} />
-        <Route path="/Verify2FA" element={<Verify2FA />} />
+        <Route path="/verify-2fa" element={<Verify2FA />} />
         <Route path="/DashboardGroupPage" element={<DashboardGroupPage />} />
-        <Route path="/AdminUserDashboard" element={<AdminUserDashboard />} />
+        <Route path="/Admin/users" element={<AdminUserDashboard />} />
         <Route path="/ProjectsPage" element={<ProjectsPage />} />
         <Route path="/AddGroup" element={<AddGroupSAPage />} />
         <Route path="/ChangePassword" element={<ChangePasswordPage />} />
         <Route path="/Chat" element={<ChatWindow/>} />
+        <Route path="/Admin/factors" element={<AdminEmisionFactor/>}/>
           {/*Rutas de los reportes*/}
         <Route path="/ReportCompanies" element={<ReportCompanies />} />
       </Routes>

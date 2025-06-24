@@ -1,6 +1,5 @@
 const API_BASE_URL = "http://localhost:5135"
 
-// Get group ID from cookies
 const getGroupId = async () => {
   const groupId = await fetchGroupId();
 
@@ -22,25 +21,17 @@ const parseJSON = async (response) => {
   if (contentType.includes("application/json")) {
     return response.json()
   }
-  // fallback (plain-text responses, etc.)
   return response.text()
 }
 
-/**
- * Get all users in a group
- * Uses group ID from cookies automatically
- * @returns {Promise<Array>} Array of users in the group
- */
-
-
 export const getGroupUsers = async () => {
   try {
-    const groupId = await getGroupId(); // <--- await here
+    const groupId = await getGroupId(); 
 
     const response = await fetch(`${API_BASE_URL}/GetGroup/${groupId}`, {
       method: "GET",
       mode: "cors",
-      credentials: "include", // add this to send cookies
+      credentials: "include", 
       headers: { Accept: "application/json" }
     });
 
@@ -48,7 +39,7 @@ export const getGroupUsers = async () => {
       throw new Error(`Failed to fetch group users: ${response.statusText}`);
     }
 
-    const data = await response.json(); // parse JSON here
+    const data = await response.json(); 
     console.log("Fetched users:", data);
     return data;
   } catch (error) {
@@ -110,7 +101,7 @@ export const removeUserFromGroup = async (userId) => {
 async function fetchGroupId() {
     try {
 
-        const response = await fetch(`http://localhost:5135/getGroupId`, {
+        const response = await fetch(`${API_BASE_URL}/getGroupId`, {
             method: "GET",
             credentials: "include"
         });
