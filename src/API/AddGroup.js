@@ -1,5 +1,6 @@
 import { appsettings } from "../settings/appsettings";
 
+
 export async function PostAddGroup(newGroup, correogrupo, selectedService) {
   try {
     const response = await fetch(`${appsettings.apiUrl}Group/create`, {
@@ -24,4 +25,14 @@ export async function PostAddGroup(newGroup, correogrupo, selectedService) {
   } catch (error) {
     return { success: false, error: error.message };
   }
+}
+
+export async function getUsers(){
+    const response = await fetch(`${appsettings.apiUrl}getUsers`);
+    if(response.ok){
+        const data = await response.json();
+        return data;
+    }else{
+        return [];
+    }
 }

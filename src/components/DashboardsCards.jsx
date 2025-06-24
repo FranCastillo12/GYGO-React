@@ -9,11 +9,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 export const DashboardsCards = () => {
 
   const [data, setData] = useState(null);
-  const grupo = 1; //obtener el id del grupo cuando se implemente...
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await getDashboardGroup(grupo);
+      const result = await getDashboardGroup();
       console.log("DASHBOARD DATA:", result);
       setData(result);
     };

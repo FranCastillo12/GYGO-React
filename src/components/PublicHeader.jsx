@@ -5,7 +5,7 @@ import "../styles/Header.css" // Asegúrate de tener este archivo CSS
 import { Link } from "react-router-dom"
 
 
-const Header = () => {
+export const PublicHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   // Cerrar menú al hacer clic fuera
@@ -84,7 +84,6 @@ const Header = () => {
               </li>
             </ul>
           </nav>
-
           <button className="menu-toggle" onClick={toggleMenu} aria-label="Toggle menu" aria-expanded={isMenuOpen}>
             <span className={`hamburger ${isMenuOpen ? "active" : ""}`}>
               <span></span>
@@ -98,4 +97,4 @@ const Header = () => {
   )
 }
 
-export default Header
+

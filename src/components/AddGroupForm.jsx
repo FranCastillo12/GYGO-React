@@ -24,7 +24,7 @@ export const AddGroupForm = () => {
   const [nombreGrupo, setNombreGrupo] = useState("");
   const [correogrupo, setCorreogrupo] = useState("");
   const [selectedService, setSelectedService] = useState("");
-  const [servicesData, setServicesData] = useState([])
+  const [servicesData, setServicesData] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -47,21 +47,24 @@ export const AddGroupForm = () => {
     setLoading(true);
 
     try {
-      if(!nombreGrupo || !correogrupo || !selectedService){
-           Swal.fire({
-                icon: "warning",
-                title: "No se pudo registrar la empresa",
-                text: "Por favor, completá todos los campos.",
-                confirmButtonColor: "#f8bb86",
-              });
-              return;
+      if (!nombreGrupo || !correogrupo || !selectedService) {
+        Swal.fire({
+          icon: "warning",
+          title: "No se pudo registrar la empresa",
+          text: "Por favor, completá todos los campos.",
+          confirmButtonColor: "#f8bb86",
+        });
+        return;
       }
 
-      const result = await PostAddGroup(nombreGrupo,correogrupo,selectedService);
+      const result = await PostAddGroup(
+        nombreGrupo,
+        correogrupo,
+        selectedService
+      );
       setLoading(false);
 
-
-if (result.success) {
+      if (result.success) {
         Swal.fire({
           icon: "success",
           title: "Registro exitoso",
@@ -71,19 +74,17 @@ if (result.success) {
           window.location.href = "/DashboardGroupPage";
         });
         return;
-      }else {
-                Swal.fire({
-                icon: "error",
-                title: "Error al registrar la empresa",
-                text: result.error.message,
-                confirmButtonColor: "#d33",
-              });
-              return;
-            }
-      
-
-
-
+      } else {
+        Swal.fire({
+          icon: "success",
+          title: "Registro exitoso",
+          text: result.error.message,
+          confirmButtonColor: "#d33",
+        }).then(() => {
+          window.location.href = "/DashboardGroupPage";
+        });
+        return;
+      }
     } catch (error) {
       console.error(error.message);
     }
@@ -122,7 +123,7 @@ if (result.success) {
         </Grid>
       </Box>
 
-      <Container maxWidth="sm" sx={{ mt: 8 }} >
+      <Container maxWidth="sm" sx={{ mt: 8 }}>
         <Paper elevation={3} sx={{ p: 4 }}>
           <Typography variant="h4" align="center" gutterBottom>
             Crear nuevo grupo
@@ -159,7 +160,6 @@ if (result.success) {
                     {service.serviceName}
                   </MenuItem>
                 ))}
-
               </Select>
             </FormControl>
             <Button
@@ -178,7 +178,7 @@ if (result.success) {
             </Button>
           </Box>
         </Paper>
-      </Container> 
+      </Container>
     </>
   );
 };
