@@ -50,6 +50,17 @@ export function Register() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  //Funciona para la contraseña
+  function isPasswordValid(password) {
+    if (password.length < 8) return false;
+    if (!/[A-Z]/.test(password)) return false; 
+    if (!/[a-z]/.test(password)) return false; 
+    if (!/[0-9]/.test(password)) return false; 
+    if (!/[^A-Za-z0-9]/.test(password)) return false; 
+    return true;
+  }
+  //Termina funcion de la contraseña
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -58,6 +69,16 @@ export function Register() {
         icon: "warning",
         title: "No se pudo registrar al usuario",
         text: "Por favor, completá todos los campos.",
+        confirmButtonColor: "#f8bb86",
+      });
+      return;
+    }
+    //Verifica la contraseña
+    if (!isPasswordValid(form.password)) {
+      Swal.fire({
+        icon: "warning",
+        title: "Problemas con la contraseña",
+        text: "La contraseña debe tener al menos 8 caracteres, mayúscula, minúscula, número y símbolo.",
         confirmButtonColor: "#f8bb86",
       });
       return;
@@ -72,13 +93,15 @@ export function Register() {
           title: "Registro exitoso",
           text: "El usuario ha sido registrado correctamente.",
           confirmButtonColor: "#2DA14C",
+        }).then(() => {
+          window.location.href = "/DashboardGroupPage";
         });
         return;
       } else {
         Swal.fire({
           icon: "error",
           title: "Error al registrar al usuario",
-          text: "",
+          text: "Puede que el correo o nombre de usuario ya esté en uso.",
           confirmButtonColor: "#d33",
         });
         return;
@@ -162,10 +185,9 @@ export function Register() {
                 <TextField
                   fullWidth
                   margin="normal"
-                   name="email"
+                  name="email"
                   label="Correo Eletronico"
                   variant="outlined"
-                  
                   value={form.email}
                   onChange={handleChange}
                 />
@@ -173,7 +195,7 @@ export function Register() {
                   fullWidth
                   margin="normal"
                   label="Nombre de usuario"
-                   name="username"
+                  name="username"
                   variant="outlined"
                   value={form.username}
                   onChange={handleChange}

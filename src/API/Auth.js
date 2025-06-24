@@ -1,13 +1,16 @@
+import { appsettings } from "../settings/appsettings";
+
+
+
 export  async function verify2FACode(tempToken, code) {
   try {
-    const response = await fetch('http://localhost:5135/api/Auth/verify-2FA', {
+    const response = await fetch(`${appsettings.apiUrl}Auth/verify-2FA`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ tempToken, code }),
     });
-
     const data = await response.json();
 
     if (response.ok) {
@@ -20,11 +23,12 @@ export  async function verify2FACode(tempToken, code) {
   }
 }
 
-export async function loginUser(email, password) {
+export  async function loginUser(email, password,login) {
   try {
-    const response = await fetch('http://localhost:5135/api/Auth/login', {
+
+    const response = await fetch(`${appsettings.apiUrl}Auth/login`, {
       method: 'POST',
-      credentials: 'include',
+      credentials: "include",
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -33,6 +37,9 @@ export async function loginUser(email, password) {
     });
 
     const data = await response.json();
+
+    console.log(data.rol);
+    login(data.rol);
 
     if (!response.ok) {
       return { success: false, error: data.error || data.message };
@@ -85,11 +92,16 @@ export  async function sendInvite(email) {
 
 export async function registerUser(inviteToken, { email, username, password }) {
   
-  const url = inviteToken ? `http://localhost:5135/api/Auth/register/${inviteToken}` : 'http://localhost:5135/api/Auth/register';
+
+  // const url = inviteToken ? `/api/register/${inviteToken}` : 'User/Register';
+
+  const url = inviteToken ? `User/register/${inviteToken}` : 'User/Register';
+
 
   try {
-    const response = await fetch(url, {
+    const response = await fetch(`${appsettings.apiUrl}${url}`, {
       method: 'POST',
+      credentials: "include",
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, username, password }),
     });

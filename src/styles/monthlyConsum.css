@@ -1,0 +1,467 @@
+/* Variables de colores de la empresa */
+:root {
+  --color-brown: #7d4f50;
+  --color-white: #ffffff;
+  --color-cream: #f7f7f2;
+  --color-green: #376d4f;
+  --color-gray: #b1b2b5;
+  --color-black: #0c0c0c;
+  --color-red: #b3261e;
+  --color-light-gray: #e8e9ea;
+}
+
+/* Contenedor principal */
+.consumo-mensual-container {
+  min-height: 100vh;
+  padding: 24px;
+  background-color: var(--color-cream);
+}
+
+.consumo-mensual-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Header */
+.header-section {
+  text-align: center;
+  position: relative;
+}
+
+.header-actions {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.back-button {
+  background-color: var(--color-white);
+  color: var(--color-brown);
+  border: 1px solid var(--color-light-gray);
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: var(--color-light-gray);
+  transform: translateY(-1px);
+}
+
+.main-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--color-green);
+  margin-bottom: 16px;
+  letter-spacing: -0.025em;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--color-brown);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background-color: var(--color-white);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  border: none;
+}
+
+.stat-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stat-icon {
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.total-icon {
+  background-color: var(--color-green);
+  color: var(--color-white);
+}
+
+.quantity-icon {
+  background-color: var(--color-brown);
+  color: var(--color-white);
+}
+
+.emissions-icon {
+  background-color: var(--color-red);
+  color: var(--color-white);
+}
+
+.average-icon {
+  background-color: var(--color-light-gray);
+  color: var(--color-black);
+}
+
+.co2-text,
+.quantity-text,
+.average-text {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.stat-info {
+  flex: 1;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: var(--color-gray);
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--color-black);
+}
+
+/* Filters Card */
+.filters-card {
+  background-color: var(--color-white);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.filters-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.filters-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-black);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.clear-filters-button {
+  background-color: transparent;
+  color: var(--color-brown);
+  border: 1px solid var(--color-brown);
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-filters-button:hover {
+  background-color: var(--color-brown);
+  color: var(--color-white);
+}
+
+.filters-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-label {
+  font-weight: 500;
+  color: var(--color-black);
+  font-size: 14px;
+}
+
+.filter-select {
+  padding: 8px 12px;
+  border: 1px solid var(--color-light-gray);
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: var(--color-white);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--color-green);
+  box-shadow: 0 0 0 3px rgba(55, 109, 79, 0.1);
+}
+
+/* Main Card */
+.main-card {
+  background-color: var(--color-white);
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 24px 24px 16px 24px;
+  border-bottom: 1px solid var(--color-light-gray);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.card-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-black);
+}
+
+.results-info {
+  font-size: 14px;
+}
+
+.filtered-results {
+  color: var(--color-brown);
+  font-weight: 500;
+}
+
+.total-results {
+  color: var(--color-gray);
+}
+
+.card-content {
+  padding: 24px;
+}
+
+/* Loading */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 0;
+  gap: 12px;
+}
+
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--color-light-gray);
+  border-top: 2px solid var(--color-green);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-text {
+  color: var(--color-brown);
+}
+
+/* No Results */
+.no-results {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--color-gray);
+}
+
+.no-results svg {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.no-results h3 {
+  font-size: 20px;
+  color: var(--color-black);
+  margin-bottom: 8px;
+}
+
+.no-results p {
+  margin-bottom: 16px;
+}
+
+/* Table */
+.table-container {
+  overflow-x: auto;
+}
+
+.consumos-mensuales-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.consumos-mensuales-table th {
+  background-color: var(--color-cream);
+  color: var(--color-brown);
+  font-weight: 600;
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--color-light-gray);
+}
+
+.consumos-mensuales-table td {
+  padding: 16px 12px;
+  border-bottom: 1px solid var(--color-light-gray);
+}
+
+.table-row:hover {
+  background-color: #f9fafb;
+}
+
+.month-cell,
+.year-cell {
+  color: var(--color-black);
+  font-weight: 500;
+}
+
+.quantity-cell {
+  color: var(--color-black);
+  font-weight: 500;
+}
+
+.emissions-cell {
+  color: var(--color-red);
+  font-weight: 600;
+}
+
+/* Actions */
+.actions-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.action-button {
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-white);
+  transition: all 0.2s ease;
+}
+
+.edit-button {
+  background-color: var(--color-green);
+}
+
+.history-button {
+  background-color: var(--color-brown);
+}
+
+.action-button:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .consumo-mensual-container {
+    padding: 16px;
+  }
+
+  .main-title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .header-actions {
+    position: static;
+    margin-bottom: 16px;
+  }
+
+  .back-button {
+    align-self: flex-start;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filters-content {
+    grid-template-columns: 1fr;
+  }
+
+  .header-content {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .actions-container {
+    flex-direction: column;
+  }
+
+  .action-button {
+    justify-content: center;
+  }
+
+  .consumos-mensuales-table {
+    font-size: 12px;
+  }
+
+  .consumos-mensuales-table th,
+  .consumos-mensuales-table td {
+    padding: 8px;
+  }
+
+  .card-content {
+    padding: 16px;
+  }
+
+  .card-header {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-title {
+    font-size: 2rem;
+  }
+}

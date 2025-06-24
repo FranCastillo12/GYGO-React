@@ -1,13 +1,23 @@
-import Header from "../components/Header"
-import Hero from "../components/Hero"
-import Mission from "../components/Mission"
-import Footer from "../components/Footer"
-import "../styles/HomePage.css"
+import { useEffect } from "react";
+import { PublicHeader } from "../components/PublicHeader";
+import Hero from "../components/Hero";
+import Mission from "../components/Mission";
+import Footer from "../components/Footer";
+import "../styles/HomePage.css";
+import { useAuth } from "../AuthContext";
 
-const HomePage = () => {
+export const HomePage = () => {
+  const { logout } = useAuth();
+
+
+  useEffect(() => {
+    logout();
+  }, []);
+
+
   return (
     <div className="home-page">
-      <Header />
+      <PublicHeader />
       <main>
         <section className="brand-section">
           <div className="container">
@@ -18,9 +28,10 @@ const HomePage = () => {
                   alt="Green On Logo"
                   className="logo-image"
                 ></img>
-                
               </div>
-              <p className="brand-tagline">SOLUCIÓN DE CONSULTORÍA DE SOSTENIBILIDAD</p>
+              <p className="brand-tagline">
+                SOLUCIÓN DE CONSULTORÍA DE SOSTENIBILIDAD
+              </p>
             </div>
           </div>
         </section>
@@ -29,7 +40,5 @@ const HomePage = () => {
       </main>
       <Footer />
     </div>
-  )
-}
-
-export default HomePage
+  );
+};

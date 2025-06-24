@@ -5,7 +5,8 @@ import { ReportCompaniesPDF } from "../utils/ReportCompaniesPDF";
 import { DataGrid } from "@mui/x-data-grid";
 import dayjs from "dayjs";
 import {
-  IconButton,
+ 
+  Divider,
   Grid,
   FormControl,
   Select,
@@ -13,6 +14,7 @@ import {
   Switch,
   TextField,
   Button,
+  IconButton,
   Typography,
   Modal,
   Box,
@@ -23,22 +25,46 @@ import {
   Card,
 } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import CloseIcon from "@mui/icons-material/Close";
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 500,
+  bgcolor: "background.paper",
+  borderRadius: 3,
+  boxShadow: 24,
+  p: 4,
+};
+
+
+
+
 export function ReportCompanies() {
   const [ReportCompaniesData, SetReportCompaniesData] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [ServicesData, setServicesData] = useState([]);
+  const [statusFilter, setStatusFilter] = useState("todos");
+  const [serviceFilter, setServiceFilter] = useState("todos");
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedCompany, setSelectedCompany] = useState(null);
   const columns = [
     {
       field: "nombre",
       headerName: "Nombre de la Empresa",
-      width: 300,
+      width: 200,
       resizable: false,
     },
     {
       field: "fechaCreación",
       headerName: "Fecha de incorporación ",
-      width: 150,
+      width: 200,
       resizable: false,
+        valueFormatter: (value) =>
+   value
+      ? new Date(value).toLocaleDateString("es-CR")
+      : "N/A",
     },
     {
       field: "serviceName",
@@ -49,8 +75,15 @@ export function ReportCompanies() {
     {
       field: "numberOfUsers",
       headerName: "Cantidad Usuarios",
-      width: 120,
+      width: 200,
       resizable: false,
+    },
+    {
+      field: "estatus",
+      headerName: "Estado",
+      width: 90,
+      resizable: false,
+      valueFormatter: (value) => (value ? "Activo" : "Inactivo"),
     },
     {
       field: "acciones",
@@ -60,11 +93,12 @@ export function ReportCompanies() {
       filterable: false,
       resizable: false,
       renderCell: (params) => (
+        
         <div
-          style={{ display: "flex", justifyContent: "flex-end", width: "100%" }}
+          style={{ display: "flex", justifyContent: "flex-end", width: "50%", paddingRight: 15 }}
         >
           <Tooltip title="Ver detalles">
-            <IconButton onClick={() => setSelectedId(params.row.grupoId)}>
+            <IconButton  onClick={() => handleOpenModal(params.row)}>
               <VisibilityIcon />
             </IconButton>
           </Tooltip>
@@ -75,9 +109,16 @@ export function ReportCompanies() {
 
   const fetchReportCompanies = async () => {
     try {
-      const data = await getReportCompanies();
+      const statusParam =
+        statusFilter === "todos" ? null : statusFilter === "true";
+      const idServiceParam =
+        serviceFilter !== "todos" ? parseInt(serviceFilter) : null;
+      const data = await getReportCompanies({
+        status: statusParam,
+        idService: idServiceParam,
+      });
+
       SetReportCompaniesData(data);
-      console.log(data);
     } catch (err) {
       console.error(err);
     }
@@ -95,16 +136,30 @@ export function ReportCompanies() {
   useEffect(() => {
     fetchReportCompanies();
     fetchServices();
-  }, []);
+  }, [statusFilter, serviceFilter]);
 
   const CreatePDF = async () => {
     try {
+      console.log(ReportCompaniesData);
+     
       ReportCompaniesPDF(ReportCompaniesData);
     } catch (error) {
       console.log("Error a crear el pdf");
     } finally {
     }
   };
+  //Acciones para el modal
+  const handleOpenModal = (group) => {
+    console.log(group);
+    setSelectedCompany(group);
+    console.log(selectedCompany);
+    setOpenModal(true);
+  };
+  const handleCloseModal = async() => {
+    setOpenModal(false);
+    setSelectedCompany(null);
+  };
+  //Fin de acciones del modal
 
   return (
     <div id="container">
@@ -153,7 +208,10 @@ export function ReportCompanies() {
                         Status
                       </Typography>
                       <FormControl size="small" sx={{ width: 180 }}>
-                        <Select>
+                        <Select
+                          value={statusFilter}
+                          onChange={(e) => setStatusFilter(e.target.value)}
+                        >
                           <MenuItem value="todos">Todos</MenuItem>
                           <MenuItem value="true">Activos</MenuItem>
                           <MenuItem value="false">Inactivos</MenuItem>
@@ -169,8 +227,11 @@ export function ReportCompanies() {
                         Servicios
                       </Typography>
                       <FormControl size="small" sx={{ width: 180 }}>
-                        <Select defaultValue="">
-                          <MenuItem value="">Todos</MenuItem>
+                        <Select
+                          value={serviceFilter}
+                          onChange={(e) => setServiceFilter(e.target.value)}
+                        >
+                          <MenuItem value="todos">Todos</MenuItem>
                           {ServicesData.map((service) => (
                             <MenuItem
                               key={service.serviceId}
@@ -190,6 +251,7 @@ export function ReportCompanies() {
           </div>
 
           <DataGrid
+            autoHeight
             rows={ReportCompaniesData}
             columns={columns}
             pageSize={5}
@@ -204,6 +266,51 @@ export function ReportCompanies() {
           />
         </Card>
       </div>
+
+      {/* Modal para ver los detalles de la empresa */}
+
+      <Modal open={openModal} onClose={handleCloseModal}>
+  <Box sx={style}>
+    <Grid container justifyContent="space-between" alignItems="center">
+      <Typography variant="h6" fontWeight="bold">
+        Detalles de la Empresa
+      </Typography>
+      <IconButton onClick={handleCloseModal}>
+        <CloseIcon />
+      </IconButton>
+    </Grid>
+
+    <Divider sx={{ my: 2 }} />
+
+    <Grid container spacing={1}>
+      {[
+        ["Nombre:", selectedCompany?.nombre || "-"],
+        ["Correo:", selectedCompany?.correo || "-"],
+        ["Fecha incorporación:", selectedCompany?.fechaCreación || "-"],
+        ["Servicio asociado:", selectedCompany?.serviceName || "-"],
+        ["Cantidad de usuarios:", selectedCompany?.numberOfUsers || "-"],
+        ["Estado:", selectedCompany?.estatus ? "Activo" : "Inactivo"],
+      ].map(([label, value], index) => (
+        <Grid item xs={12} key={index}>
+          <Box display="flex" justifyContent="space-between" alignItems="center">
+            <Typography variant="subtitle2" color="text.secondary">
+              {label}
+            </Typography>
+            <Typography>{value}</Typography>
+          </Box>
+        </Grid>
+      ))}
+    </Grid>
+
+    <Box display="flex" justifyContent="flex-end" mt={3}>
+      <Button variant="contained" onClick={handleCloseModal}>
+        Cerrar
+      </Button>
+    </Box>
+  </Box>
+</Modal>
+
+      {/* Termina Modal para ver los detalles de la empresa */}
     </div>
   );
 }

@@ -1,7 +1,7 @@
-import { appsettings } from "../settings/appsettings";
+import { appsettings } from "../../settings/appsettings";
 
-export async function getDashboardGroup(){
-    const response = await fetch(`${appsettings.apiUrl}DashboardGroup`,
+export async function getMonthlyHistory(id){
+    const response = await fetch(`${appsettings.apiUrl}MonthlyConsumption/GetHistory?consumptionId=${id}`,
         {
       method: "GET",
       credentials: "include",
