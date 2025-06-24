@@ -1,13 +1,12 @@
-import Header from "../components/Header"
 import Hero from "../components/Hero"
 import Mission from "../components/Mission"
 import Footer from "../components/Footer"
 import "../styles/HomePage.css"
 
 const HomePage = () => {
+  
   return (
     <div className="home-page">
-      <Header />
       <main>
         <section className="brand-section">
           <div className="container">
@@ -24,6 +23,7 @@ const HomePage = () => {
             </div>
           </div>
         </section>
+        
         <Hero />
         <Mission />
       </main>

@@ -8,7 +8,7 @@ import {ReportCompanies} from "./Pages/ReportCompaniesPage"
 import {Register} from "./Pages/Register"
 import {SendInvite} from "./Pages/SendInvite"
 import {Verify2FA} from "./Pages/Verify2Fa"
-
+import Header  from "./components/Header";
 import { ChatWindow } from "./Pages/ChatWindow";
 import HomePage from "./Pages/HomePage";
 import "../src/App.css";
@@ -20,13 +20,11 @@ import {DashboardConsumo} from "./Pages/ConsumoPage"
 
 import Login from "./Pages/Login";
 import "./App.css";
-import { NavBar } from "./components/NavBar";
 
 
 function App() {
   return (
     <BrowserRouter>
-      <HomePage />
       <Layout />
     </BrowserRouter>
   );
@@ -41,10 +39,11 @@ function Layout() {
 
   return (
     <>
-      {!hideNavbar && <NavBar />}
+    
+      {!hideNavbar && <Header />}
       <Routes>
+        <Route path="/" element={<HomePage />} />
         <Route path="/Login" element={<Login />} />
-        
         <Route path="/register" element={<Register />} />
         <Route path="/SendInvite" element={<SendInvite />} />
         <Route path="/Verify2FA" element={<Verify2FA />} />

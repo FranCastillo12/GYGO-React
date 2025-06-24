@@ -2,6 +2,7 @@
 import  LoginButton  from "./LoginButton"
 import { useState, useEffect } from "react"
 import "../styles/Header.css" // Asegúrate de tener este archivo CSS
+import { Link } from "react-router-dom"
 
 
 const Header = () => {
@@ -45,35 +46,38 @@ const Header = () => {
       <div className="container">
         <div className="header-content">
           <div className="logo-small">
-            <img
-              src="src\assets\Logo.png"
-              alt="Green On Logo"
-              className="logo-image"
-            />
+            <Link to="/">
+              <img
+                src="src\assets\Logo.png"
+                alt="Green On Logo"
+                className="logo-image"
+              />
+            
             <span>Green On</span>
+            </Link>
           </div>
 
           <nav className={`nav ${isMenuOpen ? "nav-open" : ""}`}>
             <ul className="nav-list">
               <li>
-                <a href="#servicios" onClick={closeMenu}>
-                  Servicios
-                </a>
+                <Link to="/DashboardGroupPage" onClick={closeMenu}>
+                  DashboardGroupPage
+                </Link>
+              </li>
+             <li>
+                <Link to="/ProjectsPage" onClick={closeMenu}>
+                  ProjectsPage
+                </Link>
               </li>
               <li>
-                <a href="#certificaciones" onClick={closeMenu}>
-                  Certificaciones
-                </a>
+                <Link to="/Chat" onClick={closeMenu}>
+                  Chat
+                </Link>
               </li>
               <li>
-                <a href="#eventos" onClick={closeMenu}>
-                  Eventos
-                </a>
-              </li>
-              <li>
-                <a href="#contactos" onClick={closeMenu}>
+                <Link to="/ContactosPage" onClick={closeMenu}>
                   Contactos
-                </a>
+                </Link>
               </li>
               <li>
                 <LoginButton />
