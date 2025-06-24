@@ -11,10 +11,12 @@ export async function PostChangePassword(UserDTO){
     });
 
     if (response.ok) {
-        const data = await response.text();
-        return data;
+        const text = await response.text();
+        const data = JSON.parse(text)
+        return data.message;
     } else {
         const error = await response.text();
-        throw new Error(error);
+        const err = JSON.parse(error)
+        throw new Error(err.message);
     }
 }
