@@ -29,10 +29,12 @@ import {
 } from "@mui/icons-material"
 import { Carousel } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export const ModernDashboardCards = () => {
+  const navigate = useNavigate();
   const [data, setData] = useState(null)
 
   useEffect(() => {
@@ -55,9 +57,15 @@ export const ModernDashboardCards = () => {
     )
   }
 
+  const handleVerConsumos = () => {
+    navigate("/consumption")
+  }
+  const handleVerProyecto = () => {
+    navigate("/projectsPage")
+  }
   const { groupName, projects, consumptions, hasProjects, hasConsumption } = data
 
-  // Función para obtener el estado del proyecto
+
   const getProjectStatus = (fechaInicio, fechaFinal) => {
     const now = new Date()
     const inicio = new Date(fechaInicio)
@@ -90,7 +98,7 @@ export const ModernDashboardCards = () => {
     }
   }
 
-  // Función para calcular progreso del proyecto
+
   const getProjectProgress = (fechaInicio, fechaFinal) => {
     const now = new Date()
     const inicio = new Date(fechaInicio)
@@ -102,7 +110,7 @@ export const ModernDashboardCards = () => {
 
   return (
     <Grid container spacing={3}>
-      {/* Card Principal del Grupo - Ancho Completo */}
+
       <Grid item xs={12}>
         <Card
           sx={{
@@ -139,6 +147,7 @@ export const ModernDashboardCards = () => {
             <Grid container spacing={2}>
               <Grid item xs={12} md={4}>
                 <Button
+                onClick={handleVerConsumos}
                   variant="contained"
                   fullWidth
                   startIcon={<TrendingUp />}
@@ -183,6 +192,7 @@ export const ModernDashboardCards = () => {
               </Grid>
               <Grid item xs={12} md={4}>
                 <Button
+                onClick={handleVerProyecto}
                   variant="contained"
                   fullWidth
                   startIcon={<Folder />}
@@ -208,7 +218,7 @@ export const ModernDashboardCards = () => {
         </Card>
       </Grid>
 
-      {/* Sección de Consumo - Tamaño medio */}
+
       <Grid item xs={12} lg={5}>
         <Card
           sx={{
@@ -237,14 +247,15 @@ export const ModernDashboardCards = () => {
 
             {hasConsumption ? (
               <Box>
-                {consumptions.slice(0, 4).map((c, index) => (
-                  <Box key={c.ID} sx={{ mb: 3 }}>
+                {consumptions.slice(0, 4).map((c) => (
+                  <Box key={c.id} sx={{ mb: 3 }}>
+                    {/* Título + Unidad */}
                     <Box display="flex" justifyContent="space-between" alignItems="center" mb={1}>
                       <Typography variant="body1" fontWeight="medium" color="#0c0c0c">
-                        {c.Factor}
+                        {c.factor}
                       </Typography>
                       <Chip
-                        label={c.Unidad}
+                        label={c.unidad || "sin unidad"}
                         size="small"
                         sx={{
                           bgcolor: "#e8e9ea",
@@ -253,32 +264,20 @@ export const ModernDashboardCards = () => {
                         }}
                       />
                     </Box>
-                    <LinearProgress
-                      variant="determinate"
-                      value={Math.random() * 100} // Simula datos reales
-                      sx={{
-                        height: 8,
-                        borderRadius: 4,
-                        bgcolor: "#e8e9ea",
-                        "& .MuiLinearProgress-bar": {
-                          background: `linear-gradient(45deg, #376d4f 30%, #7d4f50 90%)`,
-                          borderRadius: 4,
-                        },
-                      }}
-                    />
-                    <Box display="flex" justifyContent="space-between" mt={0.5}>
-                      <Typography variant="caption" color="#b1b2b5">
-                        Consumo actual
+
+                    <Box display="flex" justifyContent="space-between" alignItems="center">
+                      <Typography variant="caption" color="#7d4f50">
+                        Total: <strong>{c.totalAmount}</strong>
                       </Typography>
-                      <Typography variant="caption" fontWeight="bold" color="#7d4f50">
-                        {Math.floor(Math.random() * 100)}%
+                      <Typography variant="caption" fontWeight="bold" color="#0c0c0c">
+                        Emisiones: <strong>{c.totalEmissions} kg CO₂</strong>
                       </Typography>
                     </Box>
                   </Box>
                 ))}
 
                 {consumptions.length > 4 && (
-                  <Button variant="text" size="small" endIcon={<ArrowForward />} sx={{ mt: 1, color: "#7d4f50" }}>
+                  <Button variant="text" size="small" onClick={handleVerConsumos} endIcon={<ArrowForward />} sx={{ mt: 1, color: "#7d4f50" }}>
                     Ver más consumos (+{consumptions.length - 4})
                   </Button>
                 )}
@@ -297,7 +296,6 @@ export const ModernDashboardCards = () => {
         </Card>
       </Grid>
 
-      {/* Sección de Proyectos - Tamaño grande */}
       <Grid item xs={12} lg={7}>
         <Card
           sx={{
@@ -469,7 +467,7 @@ export const ModernDashboardCards = () => {
         </Card>
       </Grid>
 
-      {/* Card de Reportes - Tamaño completo pero más compacto */}
+
       <Grid item xs={12}>
         <Card
           sx={{
