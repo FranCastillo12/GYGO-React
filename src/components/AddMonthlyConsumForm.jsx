@@ -7,8 +7,8 @@ import {
   ErrorOutline,
 } from "@mui/icons-material";
 import "../styles/consumption.css";
-import { getConsumptionById } from "../API/Consumptions/Consumption"; // Deberías tener un fetch para esto
-import { addMonthlyConsumption } from "../API/Consumptions/MonthlyConsum"; // Tu función para agregar
+import { getConsumptionById } from "../API/Consumptions/Consumption"; 
+import { addMonthlyConsumption } from "../API/Consumptions/MonthlyConsum"; 
 
 export function AddMonthlyConsumForm({ consumptionId }) {
   const navigate = useNavigate();
@@ -29,8 +29,7 @@ export function AddMonthlyConsumForm({ consumptionId }) {
     const fetchConsumo = async () => {
       try {
         const data = await getConsumptionById(consumptionId);
-        console.log(data)
-        setConsumo(data);
+        setConsumo(data[0]);
       } catch (error) {
         console.error("Error cargando el consumo base", error);
       } finally {
@@ -102,7 +101,7 @@ export function AddMonthlyConsumForm({ consumptionId }) {
   const calcularEmisiones = () => {
     if (!consumo || !formData.amount) return 0;
     const valorFactor = consumo.valueEmision / consumo.valueUnit;
-    return (valorFactor * consumo.pcg).toFixed(2);
+    return (valorFactor * consumo.pcgValue * parseFloat(formData.amount)).toFixed(2); 
   };
 
   const handleVolver = () => {

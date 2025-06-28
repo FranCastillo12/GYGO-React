@@ -92,36 +92,7 @@ export const AddGroupForm = () => {
 
   return (
     <>
-      <Box component="form" onSubmit={handleSubmit} sx={{ mb: 2 }}>
-        <Grid container spacing={3}>
-          <Grid size={12}>
-            <TextField
-              id="outlined-basic"
-              sx={{ width: "50%" }}
-              label="Nombre del Grupo"
-              variant="outlined"
-              value={nombreGrupo}
-              onChange={(e) => setNombreGrupo(e.target.value)}
-              required
-            ></TextField>
-          </Grid>
-          <Grid size={12}>
-            <Button
-              type="submit"
-              sx={{ width: "50%" }}
-              variant="contained"
-              endIcon={<SendIcon />}
-              disabled={loading}
-            >
-              {loading ? (
-                <CircularProgress size={24} color="inherit" />
-              ) : (
-                "Registrar"
-              )}
-            </Button>
-          </Grid>
-        </Grid>
-      </Box>
+    
 
       <Container maxWidth="sm" sx={{ mt: 8 }}>
         <Paper elevation={3} sx={{ p: 4 }}>

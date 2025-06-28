@@ -52,3 +52,17 @@ export async function UpdateMonthlyConsumption(monthlyDTO){
             throw new Error(error);
         }
 }
+
+export async function GetYearsByGroup(){
+    const response = await fetch(`${appsettings.apiUrl}MonthlyConsumption/ConsumptionsYears`,{
+        method: 'GET',
+        credentials: "include"
+    });
+    if(response.ok){
+        const data = await response.json();
+        return data;
+    }else{
+        const error = await response.text();
+            throw new Error(error);
+    }
+}

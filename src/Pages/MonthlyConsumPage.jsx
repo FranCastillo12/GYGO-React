@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
-import { getMonthlyConsumptions } from "../API/Consumptions/MonthlyConsum";
+import { getMonthlyConsumptions, GetYearsByGroup } from "../API/Consumptions/MonthlyConsum";
 import { ArrowBackOutlined, CalendarMonthOutlined } from "@mui/icons-material";
 import "../styles/monthlyConsum.css";
 import { MonthlyConsumptionTable } from "../components/MonthlyConsumTable";
@@ -21,23 +21,29 @@ const meses = [
   { value: 12, label: "Diciembre" },
 ];
 
-const años = [
-  { value: "", label: "Todos los años" },
-  { value: 2025, label: "2025" },
-  { value: 2024, label: "2024" },
-  { value: 2023, label: "2023" },
-];
 
 export function MonthlyConsumptionPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const { id } = useParams();
   const consumoInfo = location.state;
+  const [year, setYear] = useState([]);
+  const [loadingYear, setLoadingYear] = useState(true);
+
+  useEffect(() =>{
+    setLoadingYear(true)
+    const fetchYears = async() =>{
+      const yearsFetch = await GetYearsByGroup();
+      setYear(yearsFetch);
+      setLoadingYear(false);
+    };
+    fetchYears();
+  }, []);
 
   const [consumosMensuales, setConsumosMensuales] = useState([]);
   const [consumosFiltrados, setConsumosFiltrados] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filtros, setFiltros] = useState({ mes: "", año: "" });
+  const [filtros, setFiltros] = useState({ month: "", years: "" });
 
    const handleAddMonthlyConsumption = () => {
     navigate(`/consumption/monthly/add/${id}`);
@@ -55,11 +61,11 @@ export function MonthlyConsumptionPage() {
 
   useEffect(() => {
     let datosFiltrados = [...consumosMensuales];
-    if (filtros.mes !== "") {
-      datosFiltrados = datosFiltrados.filter(c => c.month === Number(filtros.mes));
+    if (filtros.month !== "") {
+      datosFiltrados = datosFiltrados.filter(c => c.month === Number(filtros.month));
     }
-    if (filtros.año !== "") {
-      datosFiltrados = datosFiltrados.filter(c => c.year === Number(filtros.año));
+    if (filtros.years !== "") {
+      datosFiltrados = datosFiltrados.filter(c => c.year === Number(filtros.years));
     }
     setConsumosFiltrados(datosFiltrados);
   }, [filtros, consumosMensuales]);
@@ -69,7 +75,7 @@ export function MonthlyConsumptionPage() {
     setFiltros((prev) => ({ ...prev, [name]: value }));
   };
 
-  const limpiarFiltros = () => setFiltros({ mes: "", año: "" });
+  const limpiarFiltros = () => setFiltros({ month: "", years: "" });
 
   const calcularTotales = () => {
     return consumosFiltrados.reduce(
@@ -147,15 +153,17 @@ export function MonthlyConsumptionPage() {
           <div className="filters-content">
             <div className="filter-group">
               <label htmlFor="mes" className="filter-label">Mes</label>
-              <select id="mes" name="mes" value={filtros.mes} onChange={handleFiltroChange} className="filter-select">
+              <select id="mes" name="month" value={filtros.month} onChange={handleFiltroChange} className="filter-select">
                 {meses.map(mes => <option key={mes.value} value={mes.value}>{mes.label}</option>)}
               </select>
             </div>
             <div className="filter-group">
               <label htmlFor="año" className="filter-label">Año</label>
-              <select id="año" name="año" value={filtros.año} onChange={handleFiltroChange} className="filter-select">
-                {años.map(año => <option key={año.value} value={año.value}>{año.label}</option>)}
-              </select>
+              {loadingYear ? ( <div>Loading...</div>)
+              : (<select id="año" name="years" value={filtros.years} onChange={handleFiltroChange} className="filter-select">
+                <option value="">Todos los años</option>
+                {year.map(y => <option key={y.yearlyConsumptionId} value={y.year}>{y.year}</option>)}
+              </select>)}
             </div>
           </div>
         </div>
