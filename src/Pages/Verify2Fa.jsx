@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { verify2FACode } from "../API/Auth";
 import {
   Box,
@@ -16,6 +17,7 @@ export function Verify2FA() {
   const tempToken = searchParams.get("tempToken");
   const [code, setCode] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,6 +32,9 @@ export function Verify2FA() {
           text: "Has ingresado correctamente.",
           confirmButtonColor: "#2DA14C",
         });
+
+        navigate('/DashboardGroupPage');
+
       } else {
         Swal.fire({
           icon: "error",
