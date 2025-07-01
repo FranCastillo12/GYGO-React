@@ -32,7 +32,7 @@ import { ChatWindow } from "./Pages/ChatWindow";
 import AdminUserDashboard from "./Pages/AdminUserDashboard";
 import {HomePage} from "./Pages/HomePage";
 import "../src/App.css";
-
+import { ReportsEmissionsPage } from "./Pages/ReportsEmissionsPage";
 import Login from "./Pages/Login";
 import "./App.css";
 
@@ -81,6 +81,7 @@ function Layout() {
           <Route path="/consumption/monthly/:id" element={<MonthlyConsumptionPage/>} />
           <Route path="/consumption/edit/:id" element={<UpdateConsumptionPage/>} />
           <Route path="/consumption/monthly/history/:id" element={<MonthlyHistoryPage/>} />
+          <Route path="/reportsEmissions" element={<ReportsEmissionsPage/>} />
           <Route path="/consumption/add" element={<AddConsumptionPage/>} />
           <Route path="/consumption/monthly/edit/:consumptionId/:monthlyId" element={<UpdateMonthlyConsumPage/>} />
           <Route path="/consumption/monthly/add/:consumptionId" element={<AddMonthlyConsumPage/>} />
