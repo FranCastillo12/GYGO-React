@@ -72,10 +72,10 @@ function Layout() {
         <Route path="/SendInvite" element={<SendInvite />} />
         <Route path="/Verify2FA" element={<Verify2FA />} />
         <Route path="/Chat" element={<ChatWindow />} />
-<Route path="/Contactenos" element={<Contactenos />} />
+        <Route path="/Contactenos" element={<Contactenos />} />
        
         {/*Rutas protegidas*/}
-        <Route element={<PrivateRoute />}>
+        <Route element={<PrivateRoute />}/>
           <Route path="/DashboardGroupPage" element={<DashboardGroupPage />} />
           <Route path="/ProjectsPage" element={<ProjectsPage />} />
           <Route path="/AddGroup" element={<AddGroupSAPage />} />
