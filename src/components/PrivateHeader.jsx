@@ -173,7 +173,7 @@ export const PrivateHeader = () => {
               <ul className="nav-list">
                 <li>
                   <a href="/ProjectsPage" onClick={closeMenu}>
-                    Projectos
+                    Proyectos
                   </a>
                 </li>
                 <li>
@@ -192,16 +192,7 @@ export const PrivateHeader = () => {
                         Consumos Actuales
                       </a>
                     </li>
-                    <li>
-                      <a href="#eventos-pasados" onClick={closeMenu}>
-                        Eventos pasados
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#crear-evento" onClick={closeMenu}>
-                        Crear evento
-                      </a>
-                    </li>
+               
                   </ul>
                 </li>
                 <li>

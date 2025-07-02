@@ -31,7 +31,7 @@ export  async function loginUser(email, password,login) {
       credentials: "include",
       headers: {
         'Content-Type': 'application/json',
-        credentials: 'include'
+        'Accept': 'application/json',
       },
       body: JSON.stringify({ email, password }),
     });
@@ -42,20 +42,27 @@ export  async function loginUser(email, password,login) {
     login(data.rol);
 
     if (!response.ok) {
-      return { success: false, error: data.error };
+      return { success: false, error: data.error || data.message };
     }
 
-    if (data.isTwoFactor) {
+    console.log(data);
+
+    if (data.message === "2FA required") {
       return {
         success: true,
         isTwoFactor: true,
         tempToken: data.tempToken,
       };
     }
+    
+    return {
+      success: true,
+      isTwoFactor: false,
+    };
 
-    return { success: true, isTwoFactor: false };
-  } catch (err) {
-    return { success: false, error: 'Login request failed.' };
+  } catch (error) {
+    console.error("Error in loginUser:", error);
+    return { success: false, error: "Network or server error" };
   }
 }
 
