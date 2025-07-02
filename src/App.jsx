@@ -24,13 +24,9 @@ import { UpdateConsumptionPage } from "./Pages/UpdateConsumptionPage";
 import { ChangePasswordPage } from "./Pages/ChangePasswordPage";
 import { AddGroupSAPage } from "./Pages/AddGroupSAPage";
 import {ReportCompanies} from "./Pages/ReportCompaniesPage"
-import Header  from "./components/Header";
-import HomePage from "./Pages/HomePage";
 import Contactenos from "./Pages/Contactenos";
 import "../src/App.css";
-import Login from "./Pages/Login";
 import "./App.css";
-import { ReportCompanies } from "./Pages/ReportCompaniesPage";
 import { Register } from "./Pages/Register";
 import { SendInvite } from "./Pages/SendInvite";
 import { Verify2FA } from "./Pages/Verify2Fa";
@@ -73,7 +69,9 @@ function Layout() {
         <Route path="/register" element={<Register />} />
         <Route path="/SendInvite" element={<SendInvite />} />
         <Route path="/Verify2FA" element={<Verify2FA />} />
-
+        <Route path="/Chat" element={<ChatWindow />} />
+<Route path="/Contactenos" element={<Contactenos />} />
+       
         {/*Rutas protegidas*/}
         <Route element={<PrivateRoute />}>
           <Route path="/DashboardGroupPage" element={<DashboardGroupPage />} />
@@ -91,6 +89,8 @@ function Layout() {
           <Route path="/consumption/add" element={<AddConsumptionPage/>} />
           <Route path="/consumption/monthly/edit/:consumptionId/:monthlyId" element={<UpdateMonthlyConsumPage/>} />
           <Route path="/consumption/monthly/add/:consumptionId" element={<AddMonthlyConsumPage/>} />
+           
+          
           </Route>
 
       </Routes>

@@ -1,7 +1,17 @@
+"use client"
+
 import ContactInfo from "../components/ContactInfo"
-import "../styles/Contactenos.css" 
+import "../styles/Contactenos.css"
+import AboutUs from "../components/AboutUs"
+import { useState } from "react"
 
 const Contactenos = () => {
+  const [showAboutUs, setShowAboutUs] = useState(false)
+
+  if (showAboutUs) {
+    return <AboutUs />
+  }
+
   return (
     <div className="contactenos-container">
 
@@ -24,7 +34,9 @@ const Contactenos = () => {
         <div className="call-to-action">
           <h3>¿Te interesaría colaborar con nosotros?</h3>
           <p>Únete a nuestro equipo y forma parte de algo extraordinario.</p>
-          <button className="cta-button">Conoce más sobre nosotros</button>
+          <button className="cta-button" onClick={() => setShowAboutUs(true)}>
+            Conoce más sobre nosotros
+          </button>
         </div>
       </div>
     </div>

@@ -1,0 +1,242 @@
+.about-us-container {
+  min-height: 100vh;
+  background-color: #f5f5f0;
+  padding: 40px 20px;
+}
+
+.about-us-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Clients Section */
+.clients-section {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.clients-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #059669;
+  margin-bottom: 40px;
+}
+
+.clients-logos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.client-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* BIOTEC Logo */
+.biotec-logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.biotec-icon {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+.biotec-circle {
+  width: 40px;
+  height: 40px;
+  background-color: #059669;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.biotec-leaf {
+  width: 20px;
+  height: 20px;
+  background-color: #34d399;
+  border-radius: 50% 0;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  transform: rotate(45deg);
+}
+
+.biotec-text {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #059669;
+  letter-spacing: 2px;
+}
+
+/* LA LIMA Logo */
+.lima-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.lima-waves {
+  display: flex;
+  gap: 3px;
+  align-items: flex-end;
+}
+
+.wave {
+  background-color: #3b82f6;
+  border-radius: 10px 10px 0 0;
+}
+
+.wave-1 {
+  width: 8px;
+  height: 20px;
+}
+
+.wave-2 {
+  width: 12px;
+  height: 30px;
+}
+
+.wave-3 {
+  width: 8px;
+  height: 25px;
+}
+
+.lima-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #3b82f6;
+  letter-spacing: 3px;
+}
+
+/* GARNIER Logo */
+.garnier-logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.garnier-icon {
+  width: 50px;
+  height: 50px;
+  background-color: #059669;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.garnier-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.garnier-main {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #374151;
+  letter-spacing: 2px;
+}
+
+.garnier-sub {
+  font-size: 0.9rem;
+  color: #6b7280;
+  letter-spacing: 1px;
+}
+
+/* About Section */
+.about-section {
+  margin-bottom: 40px;
+}
+
+.about-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #374151;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.about-content {
+  border: 2px solid #059669;
+  border-radius: 12px;
+  padding: 30px;
+  background-color: white;
+}
+
+.about-paragraph {
+  color: #374151;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+.about-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+/* Back Section */
+.back-section {
+  text-align: center;
+}
+
+.back-button {
+  background-color: #059669;
+  color: white;
+  font-weight: 600;
+  padding: 12px 32px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 1rem;
+}
+
+.back-button:hover {
+  background-color: #047857;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .about-us-content {
+    padding: 0 10px;
+  }
+
+  .clients-title {
+    font-size: 1.5rem;
+  }
+
+  .clients-logos {
+    gap: 30px;
+  }
+
+  .biotec-text {
+    font-size: 1.4rem;
+  }
+
+  .lima-text {
+    font-size: 1.2rem;
+  }
+
+  .garnier-main {
+    font-size: 1.2rem;
+  }
+
+  .about-content {
+    padding: 20px;
+  }
+
+  .about-paragraph {
+    text-align: left;
+  }
+}
