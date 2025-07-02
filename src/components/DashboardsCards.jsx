@@ -63,6 +63,10 @@ export const ModernDashboardCards = () => {
   const handleVerProyecto = () => {
     navigate("/projectsPage")
   }
+
+  const handleVerReportes = ( ) =>{
+    navigate("/reportsEmissions")
+  }
   const { groupName, projects, consumptions, hasProjects, hasConsumption } = data
 
 
@@ -501,6 +505,7 @@ export const ModernDashboardCards = () => {
               </Grid>
               <Grid item xs={12} md={4} textAlign={{ xs: "left", md: "right" }}>
                 <Button
+                onClick={ () => handleVerReportes()}
                   variant="contained"
                   size="large"
                   endIcon={<ArrowForward />}

@@ -7,12 +7,18 @@ export const exportToExcel = (labels, emissions) => {
     return;
   }
 
-  const data = labels.map((label, index) => ({
-    Mes: label,
-    Emisiones: emissions[index]
-  }));
+  const fecha = new Date().toLocaleDateString();
+
+  const data = [
+    ["Reporte de Emisiones de CO₂", ""],
+    [`Generado el ${fecha}`, ""],
+    [],
+    ["Periodo", "Emisiones (kg CO₂)"],
+    ...labels.map((label, index) => [label, emissions[index]])
+  ];
 
   const worksheet = XLSX.utils.json_to_sheet(data);
+  worksheet["!cols"] = [{ wch: 24 }, { wch: 20 }];
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, "Reporte");
 
@@ -21,6 +27,6 @@ export const exportToExcel = (labels, emissions) => {
     type: "array"
   });
 
-  const file = new Blob([excelBuffer], { type: "application/octet-stream" });
+  const file = new Blob([excelBuffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
   saveAs(file, "reporte_emisiones.xlsx");
 };
