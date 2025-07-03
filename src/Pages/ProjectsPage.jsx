@@ -472,7 +472,7 @@ export function ProjectsPage() {
                   <Grid item>
                     <Button
                       variant="contained"
-                      style={{ backgroundColor: "#44af69", fontWeight: "bold" }}
+                      style={{ backgroundColor: 'rgba(0,0,0,0)', fontWeight: "bold" }}
                       onClick={openModalAddProject}
                     >
                       Nuevo Proyecto
@@ -564,7 +564,7 @@ export function ProjectsPage() {
                           variant="contained"
                           onClick={SearchByDate}
                           style={{
-                            backgroundColor: "#44af69",
+                            backgroundColor: 'rgba(0,0,0,0)',
                             fontWeight: "bold",
                           }}
                         >
@@ -574,7 +574,7 @@ export function ProjectsPage() {
                           variant="contained"
                           onClick={CleanDates}
                           style={{
-                            backgroundColor: "#44af69",
+                            backgroundColor: 'rgba(0,0,0,0)',
                             fontWeight: "bold",
                           }}
                         >
@@ -757,7 +757,7 @@ export function ProjectsPage() {
                   border: "1px solid #ccc",
                   borderRadius: 2,
                   p: 2,
-                  backgroundColor: "#f9f9f9",
+                  backgroundColor: 'rgba(0,0,0,0)',
                 }}
               >
                 <Typography variant="subtitle1">Agregar nueva tarea</Typography>
