@@ -29,7 +29,6 @@ import "../src/App.css";
 import "./App.css";
 import { Register } from "./Pages/Register";
 import { DashboardConsumo } from "./Pages/ConsumoPage";
-import {ReportCompanies} from "./Pages/ReportCompaniesPage"
 import {SendInvite} from "./Pages/SendInvite"
 import { Verify2FA } from './pages/Verify2FA';
 import { ChatWindow } from "./Pages/ChatWindow";
