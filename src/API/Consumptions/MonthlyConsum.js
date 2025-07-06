@@ -26,7 +26,7 @@ export async function addMonthlyConsumption(monthlyConsumptionDTO){
         });
     
         if (response.ok) {
-            const data = await response.text();
+            const data = await response.json();
             return data;
         } else {
             const error = await response.text();

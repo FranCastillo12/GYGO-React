@@ -31,6 +31,7 @@ import { DashboardConsumo } from "./Pages/ConsumoPage";
 import { ChatWindow } from "./Pages/ChatWindow";
 import AdminUserDashboard from "./Pages/AdminUserDashboard";
 import {HomePage} from "./Pages/HomePage";
+import { ConfirmIncidentPage } from "./Pages/ConfirmIncidentPage/ConfirmIncidentPage";
 import "../src/App.css";
 import { ReportsEmissionsPage } from "./Pages/ReportsEmissionsPage";
 import Login from "./Pages/Login";
@@ -85,6 +86,7 @@ function Layout() {
           <Route path="/consumption/add" element={<AddConsumptionPage/>} />
           <Route path="/consumption/monthly/edit/:consumptionId/:monthlyId" element={<UpdateMonthlyConsumPage/>} />
           <Route path="/consumption/monthly/add/:consumptionId" element={<AddMonthlyConsumPage/>} />
+          <Route path="/emissions/confirm" element={<ConfirmIncidentPage/>} />
           </Route>
       </Routes>
     </>

@@ -62,6 +62,11 @@ export const ReportsEmissionsPage = () => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const setLabelsName = async(months) => {
+    const mes = await months.map(item => meses[item - 1].label)
+    setLabels(mes)
+  }
+
   const handleGenerate = async () => {
     const { year, initialMonth, finalMonth, initialYear, finalYear } = formData;
     switch (selectedReport) {
@@ -70,7 +75,7 @@ export const ReportsEmissionsPage = () => {
           const res = await getMonthlyEmissions(year);
           const labelsFetch = res.map(item => item.labels);
           const emissionsFetch = res.map(item => item.emissions);
-          setLabels(labelsFetch);
+          setLabelsName(labelsFetch);
           setEmissions(emissionsFetch);
         }
         break;
@@ -85,7 +90,7 @@ export const ReportsEmissionsPage = () => {
         if (year && initialMonth && finalMonth) {
           const res = await getRangeByMonthsEmissions(year, initialMonth, finalMonth);
           if (res && res.length > 0) {
-            setLabels(res[0].labels);
+            setLabelsName(res[0].labels);
             setEmissions(res[0].emissions);
           } else {
             setLabels([]);
