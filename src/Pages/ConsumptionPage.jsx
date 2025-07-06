@@ -1,13 +1,18 @@
 import { useState, useEffect } from "react";
 import "../styles/consumption.css";
 import { useNavigate } from "react-router-dom";
-import {ConsumptionTable} from "../components/ConsumptionTable";
+import { ConsumptionTable } from "../components/ConsumptionTable";
 import { getConsumptions } from "../API/Consumptions/Consumption";
+import { Compost, WarningAmber } from "@mui/icons-material";
+import { IncidentsHistoryModal } from "../components/IncidentsHistoryModal";
 
 export function ConsumptionPage() {
   const [consumos, setConsumos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showIncidentModal, setShowIncidentModal] = useState(false);
   const navigate = useNavigate();
+
+
 
   useEffect(() => {
     const fetchConsumos = async () => {
@@ -18,7 +23,7 @@ export function ConsumptionPage() {
     };
     fetchConsumos();
   }, []);
-const handleAgregarConsumo = () => {
+  const handleAgregarConsumo = () => {
     navigate("/consumption/add");
   };
 
@@ -29,6 +34,10 @@ const handleAgregarConsumo = () => {
   const handleEditarConsumo = (id) => {
     navigate(`/consumption/edit/${id}`);
   };
+
+  const handleVerIncidentes = ( ) => {
+    navigate("/emissions/incidents")
+  }
 
   return (
     <div className="consumos-container">
@@ -44,7 +53,7 @@ const handleAgregarConsumo = () => {
           <div className="stat-card">
             <div className="stat-content">
               <div className="stat-icon energy-icon">
-                {/* Icono de MUI */}
+                <Compost />
               </div>
               <div className="stat-info">
                 <p className="stat-label">Total Consumos</p>
@@ -52,7 +61,24 @@ const handleAgregarConsumo = () => {
               </div>
             </div>
           </div>
+          <div className="stat-card">
+            <div className="stat-content">
+              <div className="stat-icon energy-icon">
+                <WarningAmber />
+              </div>
+              <div className="stat-info">
+                <p className="stat-label">Alertas de emisiones</p>
+                <button
+                  onClick={() => handleVerIncidentes()}
+                  className="btn btn-alerts"
+                >
+                  Ver incidentes
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
+
 
         <div className="main-card">
           <div className="card-header">
@@ -70,6 +96,11 @@ const handleAgregarConsumo = () => {
             onVerConsumoMensual={handleVerConsumoMensual}
             onEditarConsumo={handleEditarConsumo}
           />
+          <IncidentsHistoryModal
+            isOpen={showIncidentModal}
+            onClose={() => setShowIncidentModal(false)}
+          />
+
         </div>
       </div>
     </div>

@@ -89,6 +89,21 @@ body {
   height: 40px;
 }
 
+.btn-alerts {
+  background-color: #b91c1c;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  font-size: 0.875rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-alerts:hover {
+  background-color: #991b1b;
+}
+
 .energy-icon {
   background-color: var(--color-green);
   color: var(--color-white);

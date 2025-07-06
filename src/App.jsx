@@ -29,6 +29,7 @@ import { SendInvite } from "./Pages/SendInvite";
 import { Verify2FA } from "./Pages/Verify2Fa";
 import { DashboardConsumo } from "./Pages/ConsumoPage";
 import { ChatWindow } from "./Pages/ChatWindow";
+import IncidentsHistoryPage from "./Pages/IncidentHistoryPage";
 import AdminUserDashboard from "./Pages/AdminUserDashboard";
 import {HomePage} from "./Pages/HomePage";
 import { ConfirmIncidentPage } from "./Pages/ConfirmIncidentPage/ConfirmIncidentPage";
@@ -87,6 +88,7 @@ function Layout() {
           <Route path="/consumption/monthly/edit/:consumptionId/:monthlyId" element={<UpdateMonthlyConsumPage/>} />
           <Route path="/consumption/monthly/add/:consumptionId" element={<AddMonthlyConsumPage/>} />
           <Route path="/emissions/confirm" element={<ConfirmIncidentPage/>} />
+          <Route path="/emissions/incidents" element={<IncidentsHistoryPage/>} />
           </Route>
       </Routes>
     </>
