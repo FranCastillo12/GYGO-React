@@ -1,18 +1,18 @@
 import { useEffect } from "react";
-import { PublicHeader } from "../components/PublicHeader";
-import Hero from "../components/Hero";
-import Mission from "../components/Mission";
-import Footer from "../components/Footer";
-import "../styles/HomePage.css";
-import { useAuth } from "../AuthContext";
+import { PublicHeader } from "../components/Header/PublicHeader";
+import Hero from "../components/Hero/Hero";
+import Mission from "../components/Mission/Mission";
+import Footer from "../components/Footer/Footer";
+import "../styles/HomePage.css";    
+//import { useAuth } from "../AuthContext";
 
-export const HomePage = () => {
-  const { logout } = useAuth();
+export function HomePage() {
+//   const { logout } = useAuth();
 
 
-  useEffect(() => {
-    logout();
-  }, []);
+//   useEffect(() => {
+//     logout();
+//   }, []);
 
 
   return (

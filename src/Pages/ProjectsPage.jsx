@@ -1,27 +1,60 @@
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+
+// Material Dashboard 2 React components
+import MDBox from "components/MDBox";
+import MDTypography from "components/MDTypography";
+import MDAvatar from "components/MDAvatar";
+import MDButton from "components/MDButton";
+import MDBadge from "components/MDBadge";
+
+// Material Dashboard 2 React example components
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import Footer from "examples/Footer";
+import DataTable from "examples/Tables/DataTable";
+
+// Images
+import team2 from "assets/images/team-2.jpg";
+import team3 from "assets/images/team-3.jpg";
+import team4 from "assets/images/team-4.jpg";
+
 import React, { useState, useEffect } from "react";
-import ProjectTable from "../components/ProjectTable";
-import { CreatePDF } from "../utils/CreatePDF";
+
+import { CreatePDF } from "../utils/CreatePDF"
 import { jsPDF } from "jspdf";
 import {
-  getProjects,
-  getProjectsbyStatus,
-  getProjectsByDates,
+   getProjects,
+   getProjectsbyStatus,
+   getProjectsByDates,
   getProjectsPDF,
-  AddProject,
-  UpdateProject,
-  DProject,
-} from "../API/Projects";
+   AddProject,
+   UpdateProject,
+   DProject,
+ } from "../API/Projects";
+
+ import {
+   getTasks,
+   UpdateStatusTask,
+   AddTask,
+   UpdateTaskt,
+   DeleteTask,
+ } from "../API/Tasks";
+import { getReductionUnit } from "../API/ReductionUnit";
+
+
+
+import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
+
+
+import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
+import Swal from "sweetalert2";
+
+
 
 import {
-  getTasks,
-  UpdateStatusTask,
-  AddTask,
-  UpdateTaskt,
-  DeleteTask,
-} from "../API/Tasks";
-import { getReductionUnit } from "../API/ReductionUnit";
-import {
-  Grid,
   Box,
   FormControl,
   MenuItem,
@@ -34,16 +67,23 @@ import {
   Switch,
   TextField,
   InputLabel,
-} from "@mui/material";
-import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
-import "../styles/ProjectsPage.css";
-import { Try } from "@mui/icons-material";
-import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
-import Swal from "sweetalert2";
+  Tooltip,
+  IconButton,
+      Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 
-export function ProjectsPage() {
+} from "@mui/material";
+
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+
+
+
+function ProjectPage() {
+
   //Hook para manejar el JSON de proyectos
   const [projects, setProjects] = useState([]);
   //Hook para manejar el JSON de proyectos filtro
@@ -88,9 +128,7 @@ export function ProjectsPage() {
     descripcion: "",
   });
 
-  //Constante para encontrar proyectos
-  const grupo = 1;
-  const fetchProjects = async () => {
+ const fetchProjects = async () => {
     try {
       let data = [];
       if (startDate && endDate) {
@@ -136,6 +174,7 @@ export function ProjectsPage() {
 
   // Abrir modal y cargar detalles
   const VerMas = async (projectID) => {
+    console.log(projectID);
     setOpenModal(true);
     setLoading(true);
     try {
@@ -209,6 +248,7 @@ export function ProjectsPage() {
   };
 
   const openModalUpdateProject = async (project) => {
+    console.log(project);
     setModoEdicion(true);
     setProjectId(project.projectID);
     setProjecttData({
@@ -438,175 +478,220 @@ export function ProjectsPage() {
     }
   };
 
+
+
+
+
+
+
+
+
+
+
+  const columns = [
+  { Header: "Nombre", accessor: "nombre", align: "left" },
+  { Header: "Descripción", accessor: "descripcion", align: "left" },
+  { Header: "Unidad Reducción", accessor: "unidadreduccion", align: "center" },
+  { Header: "Cantidad", accessor: "cantidadReduccion", align: "center" },
+  { Header: "Inicio", accessor: "fechaInicio", align: "center" },
+  { Header: "Final", accessor: "fechaFinal", align: "center" },
+  { Header: "Estado", accessor: "estatus", align: "center" },
+
+  { Header: "Acciones", accessor: "action", align: "center" },
+  ];
+
+  const rows = projects.map((project) => ({
+  nombre: (
+    <MDTypography variant="caption" fontWeight="medium">
+      {project.nombre}
+    </MDTypography>
+  ),
+  descripcion: (
+    <MDTypography variant="caption" color="text">
+      {project.descripcion}
+    </MDTypography>
+  ),
+  unidadreduccion: (
+    <MDTypography variant="caption" color="text">
+      {project.unidadreduccion}
+    </MDTypography>
+  ),
+  cantidadReduccion: (
+    <MDTypography variant="caption" color="text">
+      {project.cantidadReduccion}
+    </MDTypography>
+  ),
+  fechaInicio: (
+    <MDTypography variant="caption" color="text">
+      {dayjs(project.fechaInicio).format("DD/MM/YYYY")}
+    </MDTypography>
+  ),
+  fechaFinal: (
+    <MDTypography variant="caption" color="text">
+      {dayjs(project.fechaFinal).format("DD/MM/YYYY")}
+    </MDTypography>
+  ),
+    estatus: (
+    <MDTypography variant="caption" color="text">
+      {project.estatus ? "Realizado" : "Pendiente"}
+    </MDTypography>
+  ),
+  action: (
+  <Stack direction="row" spacing={1} justifyContent="center" alignItems="center">
+    <Tooltip title="Ver detalles">
+      <IconButton size="small" onClick={() => VerMas(project.proyectoId)} >
+        <VisibilityIcon fontSize="small" />
+      </IconButton>
+    </Tooltip>
+    <Tooltip title="Editar">
+      <IconButton size="small" color="info" onClick={() => openModalUpdateProject(project)}>
+        <EditIcon fontSize="small" />
+      </IconButton>
+    </Tooltip>
+    <Tooltip title="Eliminar">
+      <IconButton size="small" color="error" onClick={() => DeleteProject(project.proyectoId)}>
+        <DeleteIcon fontSize="small" />
+      </IconButton>
+    </Tooltip>
+  </Stack>
+),
+}));
+
   return (
-    <div id="container">
-      <main style={{ padding: "24px" }}>
+     <DashboardLayout>
+      <DashboardNavbar />
+      <MDBox py={3}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <Box>
-            <Stack
-              spacing={3}
-              sx={{
-                mb: 2,
-                border: "1px solid #ccc",
-                borderRadius: 2, // bordes redondeados (usa unidades MUI)
-                padding: 2,
-              }}
-            >
-              <div>
-                <Grid
-                  container
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Grid item>
-                    <Box display="flex" flexDirection="column">
-                      <Box display="flex" alignItems="center" gap={1}>
-                        <FilterAltOutlinedIcon fontSize="medium" />
-                        <Typography variant="h6">Filtros y Acciones</Typography>
-                      </Box>
-                      <Typography variant="body2" color="text.secondary">
-                        Filtra los proyectos por status y fechas
-                      </Typography>
-                    </Box>
-                  </Grid>
-                  <Grid item>
-                    <Button
-                      variant="contained"
-                      style={{ backgroundColor: "#44af69", fontWeight: "bold" }}
-                      onClick={openModalAddProject}
-                    >
-                      Nuevo Proyecto
-                    </Button>
+          <MDBox mb={2}>
+            <MDBox borderRadius="xl" border="1px solid #ccc" p={3} mb={2} bgColor="white">
+              <Grid container alignItems="center" justifyContent="space-between">
+                <Grid item>
+                  <MDBox display="flex" flexDirection="column">
+                    <MDBox display="flex" alignItems="center" gap={1}>
+                      <FilterAltOutlinedIcon fontSize="medium" />
+                      <MDTypography variant="h6">Filtros y Acciones</MDTypography>
+                    </MDBox>
+                    <MDTypography variant="body2" color="text">
+                      Filtra los proyectos por estado y fechas
+                    </MDTypography>
+                  </MDBox>
+                </Grid>
+                <Grid item>
+                  <MDButton onClick={(openModalAddProject)}>Nuevo Proyecto</MDButton>
+                </Grid>
+              </Grid>
+
+              <Grid container alignItems="center" justifyContent="space-between" spacing={2} mt={2}>
+                <Grid item>
+                  <Grid container spacing={2}>
+                    <Grid item>
+                      <MDTypography variant="body2" color="text">
+                        Estado
+                      </MDTypography>
+                      <FormControl size="small" sx={{ width: 180 }}>
+                        <Select value={filter} onChange={(e) => setFilter(e.target.value)}>
+                          <MenuItem value="todos">Todos</MenuItem>
+                          <MenuItem value="true">Realizados</MenuItem>
+                          <MenuItem value="false">Pendientes</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Grid>
+
+                    <Grid item>
+                      <MDTypography variant="body2" color="text">
+                        Fecha Inicio
+                      </MDTypography>
+          
+
+                      <DatePicker
+  value={startDate}
+  onChange={(newValue) => setStartDate(newValue)}
+  renderInput={(params) => (
+    <TextField
+      {...params}
+      size="small"
+      sx={{ width: 180 }}
+    />
+  )}
+/>
+                    </Grid>
+
+                    <Grid item>
+                      <MDTypography variant="body2" color="text">
+                        Fecha Fin
+                      </MDTypography>
+                    <DatePicker
+  value={endDate}
+  onChange={(newValue) => setEndDate(newValue)}
+  renderInput={(params) => (
+    <TextField
+      {...params}
+      size="small"
+      sx={{ width: 180 }}
+    />
+  )}
+/>
+                    </Grid>
                   </Grid>
                 </Grid>
 
-                <div style={{ paddingTop: "3%" }}>
-                  <Grid
-                    container
-                    alignItems="center"
-                    justifyContent="space-between"
-                    spacing={2}
-                  >
-                    {/* BLOQUE IZQUIERDO: Filtros */}
-                    <Grid item>
-                      <Grid container spacing={2}>
-                        <Grid item>
-                          <Box>
-                            <Typography
-                              variant="body2"
-                              gutterBottom
-                              textAlign="left"
-                            >
-                              Status
-                            </Typography>
-                            <FormControl size="small" sx={{ width: 180 }}>
-                              <Select
-                                value={filter}
-                                onChange={(e) => setFilter(e.target.value)}
-                              >
-                                <MenuItem value="todos">Todos</MenuItem>
-                                <MenuItem value="true">Realizados</MenuItem>
-                                <MenuItem value="false">Pendientes</MenuItem>
-                              </Select>
-                            </FormControl>
-                          </Box>
-                        </Grid>
+                <Grid item>
+                  <MDBox display="flex" gap={1}>
+                    <MDButton onClick={SearchByDate} color="info">
+                      Buscar por fecha
+                    </MDButton>
+                    <MDButton onClick={CleanDates} color="secondary">
+                      Limpiar fechas
+                    </MDButton>
+                    {Array.isArray(data) && data.length > 0 && (
+                      <MDButton variant="outlined" onClick={CreatePDFAPI} color="dark">
+                        Descargar PDF
+                      </MDButton>
+                    )}
+                  </MDBox>
+                </Grid>
+              </Grid>
+            </MDBox>
 
-                        <Grid item>
-                          <Box>
-                            <Typography
-                              variant="body2"
-                              gutterBottom
-                              textAlign="left"
-                            >
-                              Fecha Inicio
-                            </Typography>
-                            <DatePicker
-                              value={startDate}
-                              onChange={(newValue) => setStartDate(newValue)}
-                              slotProps={{
-                                textField: {
-                                  size: "small",
-                                  sx: { width: 180 },
-                                },
-                              }}
-                            />
-                          </Box>
-                        </Grid>
-
-                        <Grid item>
-                          <Box>
-                            <Typography
-                              variant="body2"
-                              gutterBottom
-                              textAlign="left"
-                            >
-                              Fecha Fin
-                            </Typography>
-                            <DatePicker
-                              value={endDate}
-                              onChange={(newValue) => setEndDate(newValue)}
-                              slotProps={{
-                                textField: {
-                                  size: "small",
-                                  sx: { width: 180 },
-                                },
-                              }}
-                            />
-                          </Box>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-
-                    <Grid item>
-                      <Box display="flex" gap={1}>
-                        <Button
-                          variant="contained"
-                          onClick={SearchByDate}
-                          style={{
-                            backgroundColor: "#44af69",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Buscar por fecha
-                        </Button>
-                        <Button
-                          variant="contained"
-                          onClick={CleanDates}
-                          style={{
-                            backgroundColor: "#44af69",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          Limpiar Fechas
-                        </Button>
-                        {data.length > 0 && (
-                          <Button
-                            variant="outlined"
-                            color="secondary"
-                            onClick={() => CreatePDFAPI(1)}
-                          >
-                            Descargar pdf
-                          </Button>
-                        )}
-                      </Box>
-                    </Grid>
-                  </Grid>
-                </div>
-              </div>
-            </Stack>
-
-            <ProjectTable
-              projects={projects}
-              onViewMore={VerMas}
-              updateProject={openModalUpdateProject}
-              deleteProject={DeleteProject}
-            />
-          </Box>
+            <MDBox pt={6} pb={3}>
+              <Grid container spacing={6}>
+                <Grid item xs={12}>
+                  <Card>
+                    <MDBox
+                      mx={2}
+                      mt={-3}
+                      py={3}
+                      px={2}
+                      variant="gradient"
+                      bgColor="info"
+                      borderRadius="lg"
+                      coloredShadow="info"
+                    >
+                      <MDTypography variant="h6" color="white">
+                        Proyectos Actuales
+                      </MDTypography>
+                    </MDBox>
+                    <MDBox pt={3}>
+                      <DataTable
+                        table={{ columns, rows }}
+                        isSorted={false}
+                        entriesPerPage={false}
+                        showTotalEntries={false}
+                        noEndBorder
+                      />
+                    </MDBox>
+                  </Card>
+                </Grid>
+              </Grid>
+            </MDBox>
+          </MDBox>
         </LocalizationProvider>
-      </main>
+        <Footer />
+      </MDBox>
 
-      <Modal
+
+
+ <Modal
         open={openModal}
         onClose={CloseModal}
         aria-labelledby="modal-modal-title"
@@ -757,7 +842,7 @@ export function ProjectsPage() {
                   border: "1px solid #ccc",
                   borderRadius: 2,
                   p: 2,
-                  backgroundColor: "#f9f9f9",
+                  backgroundColor: 'rgba(0,0,0,0)',
                 }}
               >
                 <Typography variant="subtitle1">Agregar nueva tarea</Typography>
@@ -798,7 +883,7 @@ export function ProjectsPage() {
         </Box>
       </Modal>
 
-      {/* Modal para agregar un nuevo proyecto */}
+ {/* Modal para agregar un nuevo proyecto */}
       <Modal
         open={openModalProjects}
         onClose={CloseModal}
@@ -926,6 +1011,15 @@ export function ProjectsPage() {
         </Box>
       </Modal>
       {/* Fin del Modal para agregar un nuevo proyecto */}
-    </div>
+
+    </DashboardLayout>
+
   );
 }
+
+export default ProjectPage;
+
+
+
+
+   

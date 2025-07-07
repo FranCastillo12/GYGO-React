@@ -1,9 +1,11 @@
 
 import { useState } from "react";
-
-import { useAuth } from '../AuthContext';
+import logo from "../assets/Logo.png"
+//import { useAuth } from '../AuthContext';
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../API/Auth";
+import { useAuth } from "../context/AuthContext";
+
 import {
   Button,
   CssBaseline,
@@ -40,11 +42,13 @@ const Paper = styled("div")(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   boxShadow: theme.shadows[5],
   width: "100%",
+   maxWidth: 400,        
+  margin: "0 auto",
 }));
 
 
 export default function Login() {
-  const { login } = useAuth();
+   const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -65,10 +69,10 @@ export default function Login() {
     }
 
     try {
-      const { success, isTwoFactor, tempToken, error } = await loginUser(
+      const { success, isTwoFactor, tempToken, error,rol } = await loginUser(
         email,
         password,
-        login
+        
       );
       if (!success) {
         Swal.fire({
@@ -85,8 +89,10 @@ export default function Login() {
         // Redirect to 2FA page
         navigate(`/verify-2fa?tempToken=${encodeURIComponent(tempToken)}`);
       } else {
+        console.log("Rol que se va a guardar:", rol);
+        login(rol);
         // Normal login success — redirect to dashboard or home
-        navigate("/DashboardGroupPage");
+        navigate("/dashboard");
       }
     } catch (error) {
       Swal.fire({
@@ -136,7 +142,7 @@ export default function Login() {
             <Paper>
               <Box textAlign="center" mb={1}>
                 <img
-                  src="/src/assets/Logo.png"
+                  src={logo}
                   alt="Logo"
                   style={{ maxWidth: "120px"}}
                 />

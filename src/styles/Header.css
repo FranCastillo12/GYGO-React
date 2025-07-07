@@ -22,13 +22,9 @@
 }
 
 .logo-small {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: white;
-  background: linear-gradient(135deg, #ffffff 0%, #44af69 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+   display: flex;
+  align-items: center;
+  gap: 8px;
   transition: transform 0.3s ease;
   z-index: 1001;
 }
@@ -36,7 +32,19 @@
 .logo-small:hover {
   transform: scale(1.05);
 }
-
+.logo-image {
+  width: 76px;
+  height: 58px;
+  object-fit: contain;
+}
+.logo-text {
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #44af69 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 .nav {
   display: block;
 }

@@ -23,28 +23,7 @@ export async function AddProject(projectData) {
 
     return true;
 
-    const data = await response.json();
-    console.log(data);
-
-    if (!data.isSuccess) {
-      setError(data.errors ? data.errors.join(", ") : "Login failed");
-      return;
-    }
-
-    if (data.is2FactorRequired) {
-      localStorage.setItem("tempToken", data.tempToken);
-      alert("Two-factor authentication required. Please verify.");
-      return;
-    }
-
-    if (data.token) {
-      //localStorage.setItem("authToken", data.token.AccessToken);
-      alert("Login successful!");
-      navigate("/DashboardGroupPage");
-      // falta redirect a la pagina de dashboard
-    } else {
-      throw new Error("Unexpected response from server");
-    }
+   
   } catch (error) {
     console.error("AddProject error:", error);
     throw error;
@@ -133,7 +112,6 @@ export async function getProjectsbyStatus(status) {
   } else {
     return [];
   }
-  CreatePdf;
 }
 
 //API para obtener los proyectos por fechas
