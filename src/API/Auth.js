@@ -59,10 +59,11 @@ export  async function loginUser(email, password) {
         tempToken: data.tempToken,
         rol: data.rol,
         id: data.id,
+        groupId: data.grupo ,
       };
     }
 
-    return { success: true, isTwoFactor: false,rol: data.rol,id:data.id };
+    return { success: true, isTwoFactor: false,rol: data.rol,id:data.id, groupId: data.grupo };
   } catch (err) {
     return { success: false, error: 'Login request failed.' };
   }

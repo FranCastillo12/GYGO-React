@@ -21,12 +21,12 @@ export function ConsumptionTable({ consumos, loading, onVerConsumoMensual, onEdi
       </MDTypography>
     ),
     factorName: (
-      <MDTypography variant="caption" color="text">
+      <MDTypography variant="caption" color="text" sx={{color: "#495057"}}>
         {consumo.factorName}
       </MDTypography>
     ),
     unit: (
-      <MDTypography variant="caption" color="text">
+      <MDTypography variant="caption" color="text" sx={{color: "#495057"}}>
         {consumo.unitAbbreviation}
       </MDTypography>
     ),

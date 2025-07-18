@@ -81,6 +81,9 @@ export default function App() {
     "/homepage",
     "/certificaciones",
     "/Registro/:inviteToken",
+    "/servicios",
+    "/nosotros",
+    "/contactos",
   ];
   const hideSidebar = hideSidebarRoutes.includes(pathname.toLowerCase());
 
@@ -179,36 +182,7 @@ const renderRoutes = (allRoutes) =>
   );
 
 
-  return direction === "rtl" ? (
-    <CacheProvider value={rtlCache}>
-      <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
-        <CssBaseline />
-        {layout === "dashboard" && !hideSidebar && (
-          <>
-            <Sidenav
-              color={sidenavColor}
-              brand={
-                (transparentSidenav && !darkMode) || whiteSidenav
-                  ? brandDark
-                  : brandWhite
-              }
-              brandName="Material Dashboard 2"
-              routes={filteredRoutes}
-              onMouseEnter={handleOnMouseEnter}
-              onMouseLeave={handleOnMouseLeave}
-            />
-            <Configurator />
-            {configsButton}
-          </>
-        )}
-        {layout === "vr" && <Configurator />}
-        <Routes>
-          {renderRoutes(filteredRoutes)}
-          <Route path="*" element={<Navigate to="/dashboard" />} />
-        </Routes>
-      </ThemeProvider>
-    </CacheProvider>
-  ) : (
+  return  (
     <ThemeProvider theme={darkMode ? themeDark : theme}>
       <CssBaseline />
       {layout === "dashboard" && !hideSidebar && (
@@ -227,7 +201,7 @@ const renderRoutes = (allRoutes) =>
       {layout === "vr" && <Configurator />}
       <Routes>
         {renderRoutes(filteredRoutes)}
-        <Route path="*" element={<Navigate to="/dashboard" />} />
+        <Route path="*" element={<Navigate to="/HomePage" />} />
       </Routes>
     </ThemeProvider>
   );

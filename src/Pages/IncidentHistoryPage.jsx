@@ -54,12 +54,12 @@ const IncidentsHistoryPage = () => {
       </MDTypography>
     ),
     promedio: (
-      <MDTypography variant="caption" color="text">
+      <MDTypography variant="caption" color="text" sx={{color: "#495057"}}>
         {i.promedio}
       </MDTypography>
     ),
     reales: (
-      <MDTypography variant="caption" color="text">
+      <MDTypography variant="caption" color="text" sx={{color: "#495057"}}>
         {i.reales}
       </MDTypography>
     ),
@@ -90,7 +90,7 @@ const IncidentsHistoryPage = () => {
                   <Grid>
                     <MDBox display="flex" flexDirection="column" gap={1}>
                       <MDTypography variant="h6">Historial de Incidentes</MDTypography>
-                      <MDTypography variant="body2" color="text">
+                      <MDTypography variant="body2" color="#495057">
                         Visualiza todos los incidentes de exceso de emisiones registrados
                       </MDTypography>
                     </MDBox>

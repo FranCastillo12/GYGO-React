@@ -43,6 +43,9 @@ import ServicesPage from "./Pages/ServicesPage";
 import Certificaciones from "./Pages/Public/Certifications";
 import SubscriptionSwitch from "./Pages/SubscriptionsPages/Subscription"
 import { Verify2FA } from "./Pages/Verify2Fa";
+import { ServicesHomePage } from "./Pages/Public/ServicesPage";
+import { AboutUs } from "./Pages/Public/AboutUs";   
+import {ContactUs} from "./Pages/Public/ContactUs";
 
 
 
@@ -73,7 +76,22 @@ export const routes = [
     route: "/certificaciones",
     component: <Certificaciones />,
   },
+{
+    key: "services",
+    route: "/servicios",
+    component: <ServicesHomePage />,
+  },
+  {
+    key: "nosotros",
+    route: "/nosotros",
+    component:<AboutUs />,
+  },
+  {
+    key: "contactos",
+    route: "/contactos",
+    component:<ContactUs />,
 
+  },
 
   //Ruta de dashboard no visible
   {
@@ -528,7 +546,7 @@ export const routes = [
       name: "Actualizar consumo",
       key: "add-consumption",
       icon: <Icon fontSize="small">add</Icon>,
-      route: "/consumption/add",
+      route: "/consumption/edit/:id",
       component: (
         <ProtectedElement>
           <UpdateConsumptionPage />

@@ -68,7 +68,7 @@ const handleSubscribe = async (planId) => {
                 <Button
                   fullWidth
                   variant="contained"
-                  color="primary"
+                  color="primary" sx={{color: "#ffffff"}}
                   onClick={() => handleSubscribe(plan.id)}
                 >
                   Suscribirse

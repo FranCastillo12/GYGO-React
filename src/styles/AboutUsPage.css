@@ -1,0 +1,314 @@
+/* About Us Page Styles */
+.about-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #059669;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #059669, #10b981);
+  border-radius: 2px;
+}
+
+/* Clients Section */
+.clients-section {
+  padding: 5rem 0;
+  background: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 3rem;
+  align-items: center;
+  justify-items: center;
+}
+
+.client-logo {
+  padding: 1.5rem;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.client-logo:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.client-logo img {
+  width: 100%;
+  height: auto;
+  max-height: 80px;
+  object-fit: contain;
+}
+
+/* About Us Section */
+.about-us-section {
+  padding: 5rem 0;
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+}
+
+.about-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-text-box {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d1fae5;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-text-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #059669, #10b981, #34d399);
+}
+
+.about-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #374151;
+  margin-bottom: 1.5rem;
+  text-align: justify;
+}
+
+.about-text:last-child {
+  margin-bottom: 0;
+  font-weight: 500;
+  color: #059669;
+}
+
+/* Founders Section */
+.founders-section {
+  padding: 5rem 0;
+  background: white;
+}
+
+.founders-grid {
+  display: grid;
+  gap: 4rem;
+}
+
+.founder-card {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.founder-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+}
+
+.founder-card:nth-child(even) {
+  grid-template-columns: 1fr 300px;
+}
+
+.founder-card:nth-child(even) .founder-image {
+  order: 2;
+}
+
+.founder-card:nth-child(even) .founder-info {
+  order: 1;
+}
+
+.founder-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.founder-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(5, 150, 105, 0.1), rgba(16, 185, 129, 0.1));
+  z-index: 1;
+}
+
+.founder-image img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.founder-image:hover img {
+  transform: scale(1.05);
+}
+
+.founder-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.founder-name {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #059669;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.founder-name::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background: #10b981;
+}
+
+.founder-description {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #4b5563;
+  margin-bottom: 1.5rem;
+  text-align: justify;
+}
+
+.founder-contact {
+  background: linear-gradient(135deg, #f0fdf4, #ecfdf5);
+  padding: 1rem;
+  border-radius: 10px;
+  border-left: 4px solid #10b981;
+  margin-top: auto;
+}
+
+.founder-contact p {
+  margin: 0.5rem 0;
+  color: #059669;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.founder-contact p:first-child {
+  margin-top: 0;
+}
+
+.founder-contact p:last-child {
+  margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .clients-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .about-text-box {
+    padding: 1.5rem;
+  }
+  
+  .founder-card {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+  
+  .founder-card:nth-child(even) {
+    grid-template-columns: 1fr;
+  }
+  
+  .founder-card:nth-child(even) .founder-image,
+  .founder-card:nth-child(even) .founder-info {
+    order: initial;
+  }
+  
+  .founder-image img {
+    height: 300px;
+  }
+  
+  .founder-name {
+    font-size: 1.5rem;
+  }
+  
+  .about-text {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .clients-section,
+  .about-us-section,
+  .founders-section {
+    padding: 3rem 0;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+  
+  .about-text-box {
+    padding: 1.25rem;
+  }
+  
+  .founder-card {
+    padding: 1.25rem;
+  }
+  
+  .founder-image img {
+    height: 250px;
+  }
+}
