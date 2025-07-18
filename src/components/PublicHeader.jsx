@@ -41,7 +41,7 @@ export const PublicHeader = () => {
   const menuItems = [
     { text: "Servicios", route: "/servicios" },
     { text: "Certificaciones", route: "/certificaciones" },
-    { text: "Sobre Nosotros", route: "/nosotros" },
+    { text: "Eventos", route: "/eventos" },
     { text: "Contactos", route: "/contactos" }
   ]
 
@@ -52,10 +52,6 @@ export const PublicHeader = () => {
 
   const handleLogoClick = () => {
     navigate("/HomePage")
-  }
-
-  const handleLoginClick = () => {
-    navigate("/login")
   }
 
   return (
@@ -163,31 +159,6 @@ export const PublicHeader = () => {
           background-color: rgba(76, 175, 80, 0.1);
           transform: translateY(-2px);
           box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
-        }
-
-        .right-section {
-          display: flex;
-          align-items: center;
-          gap: 16px;
-        }
-
-        .login-btn {
-          background: #2E7D32;
-          color: white;
-          border: none;
-          border-radius: 12px;
-          padding: 10px 24px;
-          font-weight: 500;
-          font-size: 0.95rem;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          font-family: inherit;
-        }
-
-        .login-btn:hover {
-          background: #1B5E20;
-          transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
         }
 
         .menu-toggle {
@@ -316,14 +287,6 @@ export const PublicHeader = () => {
             background: rgba(76, 175, 80, 0.2);
             transform: scale(1.05);
           }
-
-          .mobile-login-btn {
-            width: 100%;
-            margin-top: 16px;
-            padding: 16px 20px;
-            font-size: 1rem;
-            text-align: center;
-          }
         }
 
         /* Mobile overlay */
@@ -385,36 +348,16 @@ export const PublicHeader = () => {
                       </button>
                     </li>
                   ))}
-                  {/* Botón Log In en mobile dentro del menú */}
-                  {isMobile && (
-                    <li>
-                      <button 
-                        className="login-btn mobile-login-btn" 
-                        onClick={handleLoginClick}
-                      >
-                        Log In
-                      </button>
-                    </li>
-                  )}
                 </ul>
               </nav>
 
-              <div className="right-section">
-                {/* Botón Log In en desktop */}
-                {!isMobile && (
-                  <button className="login-btn" onClick={handleLoginClick}>
-                    Log In
-                  </button>
-                )}
-                
-                <button className="menu-toggle" onClick={toggleMenu} aria-label="Toggle menu" aria-expanded={isMenuOpen}>
-                  <span className={`hamburger ${isMenuOpen ? "active" : ""}`}>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </span>
-                </button>
-              </div>
+              <button className="menu-toggle" onClick={toggleMenu} aria-label="Toggle menu" aria-expanded={isMenuOpen}>
+                <span className={`hamburger ${isMenuOpen ? "active" : ""}`}>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </span>
+              </button>
             </div>
           </div>
         </div>

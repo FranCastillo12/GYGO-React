@@ -65,22 +65,22 @@ export function MonthlyConsumptionTable({ consumos, loading, consumptionId }) {
 
   const rows = consumos.map((consumo) => ({
     mes: (
-      <MDTypography variant="caption" color="text" sx={{color: "#495057"}}>
+      <MDTypography variant="caption" color="text">
         {getNombreMes(consumo.month)}
       </MDTypography>
     ),
     año: (
-      <MDTypography variant="caption" color="text" sx={{color: "#495057"}}>
+      <MDTypography variant="caption" color="text">
         {consumo.year}
       </MDTypography>
     ),
     cantidad: (
-      <MDTypography variant="caption" color="text" sx={{color: "#495057"}}>
+      <MDTypography variant="caption" color="text">
         {consumo.amount.toLocaleString()} kWh
       </MDTypography>
     ),
     emisiones: (
-      <MDTypography variant="caption" color="text" sx={{color: "#495057"}}>
+      <MDTypography variant="caption" color="text">
         {consumo.emissions.toFixed(2)} kg CO₂
       </MDTypography>
     ),

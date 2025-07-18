@@ -44,7 +44,6 @@ import {
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
-import customParseFormat from "dayjs/plugin/customParseFormat";
 import "../../styles/ProjectsPage.css";
 import { Try } from "@mui/icons-material";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
@@ -68,7 +67,6 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
-dayjs.extend(customParseFormat);
 
 function ProjectPage() {
   //Hook para manejar el JSON de proyectos
@@ -504,12 +502,12 @@ function ProjectPage() {
     ),
     fechaInicio: (
       <MDTypography variant="caption" color="text">
-        {dayjs(project.fechaInicio, "DD-MM-YYYY").format("DD/MM/YYYY")}
+        {dayjs(project.fechaInicio).format("DD/MM/YYYY")}
       </MDTypography>
     ),
     fechaFinal: (
       <MDTypography variant="caption" color="text">
-        {dayjs(project.fechaFinal, "DD-MM-YYYY").format("DD/MM/YYYY")}
+        {dayjs(project.fechaFinal).format("DD/MM/YYYY")}
       </MDTypography>
     ),
     estatus: (

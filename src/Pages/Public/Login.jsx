@@ -21,7 +21,6 @@ import {
 import { Visibility, VisibilityOff, Email } from "@mui/icons-material";
 import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
 import Swal from "sweetalert2";
-import { PublicHeader } from "../../components/PublicHeader";
 
 const theme = createTheme({
   palette: {
@@ -68,7 +67,7 @@ export default function Login() {
     }
 
     try {
-      const { success, isTwoFactor, tempToken, error,rol ,id,groupId} = await loginUser(
+      const { success, isTwoFactor, tempToken, error,rol ,id} = await loginUser(
         email,
         password
       );
@@ -90,7 +89,7 @@ export default function Login() {
       } else {
          console.log("Rol que se va a guardar:", rol);
          console.log("ID que se va a guardar:", id);
-        login(rol,id,groupId); // Save role and userId in context
+        login(rol,id);
         // Normal login success — redirect to dashboard or home
         navigate("/Dashboard");
       }
